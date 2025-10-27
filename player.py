@@ -4,9 +4,13 @@ open_canvas()
 
 character = load_image('char1_1.png')
 
-clear_canvas()
-character.clip_draw(0,0,30,30,400,300,200,200)
-update_canvas()
-delay(1)
+frame = 0
+while True:
+    clear_canvas()
+    character.clip_draw(frame * 30, 30, 30, 30, 400, 300, 50, 50)
+    frame = (frame + 1) % 3
+    update_canvas()
+    delay(0.1)
+
 
 close_canvas()
