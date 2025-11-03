@@ -37,7 +37,12 @@ def render_world():
     update_canvas()
 
 
+def handle_events():
+    pass
+
+
 while running:
+    handle_events()
     update_world()
     render_world()
     delay(0.1)
