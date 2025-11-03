@@ -14,6 +14,15 @@ class Character:
     def update(self):
         self.image.clip_draw(self.frame * 30, 30, 30, 30, 400, 300, 50, 50)
 
+
+def update_world():
+    character.update()
+
+
+def render_world():
+    pass
+
+
 while running:
     update_world()
     render_world()
