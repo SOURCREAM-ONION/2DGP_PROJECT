@@ -20,7 +20,9 @@ def update_world():
 
 
 def render_world():
-    pass
+    clear_canvas()
+    character.draw()
+    update_canvas()
 
 
 while running:
