@@ -7,10 +7,10 @@ class Character:
         self.image = load_image('Char1_1.png')
 
     def draw(self):  # 캐릭터가 그려지는 부분
-        self.frame = (self.frame + 1) % 3
+        self.image.clip_draw(self.frame * 30, 30, 30, 30, 400, 300)
 
     def update(self): # 캐릭터가 업데이트 되는 부분
-        self.image.clip_draw(self.frame * 30, 30, 30, 30, 400, 300)
+        self.frame = (self.frame + 1) % 3
 
 def handle_events():
     global running
