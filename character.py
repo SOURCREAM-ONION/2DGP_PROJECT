@@ -2,14 +2,20 @@ from pico2d import load_image
 
 
 class Idle:
-    def __init__(self):
-        pass
+    def __init__(self,character):
+        self.character = character
 
     def enter(self):
         pass
 
     def exit(self):
         pass
+
+    def do(self):
+        self.character.frame = (self.character.frame + 1) % 4
+
+    def draw(self):
+        self.image.clip_draw(self.frame * 30, 120, 30, 30, 400, 300)
 
 class Character:
     def __init__(self): # 캐릭터가 처음 생성될 때 나오는 부분
