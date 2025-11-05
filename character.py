@@ -1,4 +1,5 @@
 from pico2d import load_image
+from state_machine import StateMachine
 
 
 class Idle:
@@ -22,10 +23,12 @@ class Character:
         self.x, self.y = 400, 300 # 캐릭터의 초기 위치
         self.frame = 0 # 캐릭터의 프레임 초기화
         self.image = load_image('Char1_1.png') # 캐릭터의 이미지 로드
+        self.state_machine = StateMachine(self.IDLE) #상태 머신 생성 및 초기 시작 상태 설정
 
     def update(self): # 캐릭터가 업데이트 되는 부분
-       self.state_machine.update()
+        self.state_machine.update()
 
     def draw(self):  # 캐릭터가 그려지는 부분
+        self.state_machine.draw()
         self.image.clip_draw(self.frame * 30, 30, 30, 30, 400, 300) # 캐릭터의 이미지에서 프레임에 맞게 그리기
 
