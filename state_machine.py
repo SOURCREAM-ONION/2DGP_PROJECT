@@ -1,2 +1,4 @@
 class StateMachine:
-    pass
+    def __init__(self, start_state):
+        self.current_state = start_state
+        self.current_state.enter()
