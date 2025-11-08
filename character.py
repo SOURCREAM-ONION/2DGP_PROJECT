@@ -53,7 +53,10 @@ class Attack:
         pass
 
     def do(self):
-        self.frame = (self.frame + 1) % self.frame_count  # 프레임을 0~3까지 반복
+        self.frame = self.frame + 1
+        if self.frame >= self.frame_count:
+            # 이벤트를 발생시켜 상태 전환
+            self.character.state_machine.handle_event(('TIME_OUT', None))
 
     def draw(self):
         # 현재 프레임에 해당하는 이미지만 그리기
@@ -77,7 +80,8 @@ class Character:
         self.state_machine = StateMachine(
             self.IDLE,
             {
-                self.IDLE : {mouse_left_click : self.ATTACK}
+                self.IDLE : {mouse_left_click : self.ATTACK},
+                self.ATTACK : {time_out : self.IDLE}
             }
         )
 
