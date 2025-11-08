@@ -60,6 +60,8 @@ class Character:
         self.image = load_image('Char1_1.png') # 캐릭터의 이미지 로드
         self.IDLE = Idle(self) # Idle 상태 생성
         self.state_machine = StateMachine(self.IDLE) #상태 머신 생성 및 초기 시작 상태 설정 (Idle로 초기 설정)
+        self.ATTACK = Attack(self) # Attack 상태 생성
+        self.DEFENCE = Defence(self) # Defence 상태 생성
 
     def update(self):
         self.state_machine.update() # 상태 머신한테 update를 맡김
