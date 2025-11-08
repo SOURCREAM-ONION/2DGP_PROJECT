@@ -5,6 +5,8 @@ from state_machine import StateMachine
 
 def mouse_left_click(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_LEFT # 마우스 좌클릭
+def time_out(e):
+    return e[0] == 'TIME_OUT' # 애니메이션 끝나는 이벤트
 
 class Idle:
     def __init__(self,character):
