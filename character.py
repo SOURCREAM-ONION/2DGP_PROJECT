@@ -1,5 +1,5 @@
 from pico2d import load_image
-from sdl2 import SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT
+from sdl2 import SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_KEYDOWN, SDLK_SPACE
 
 from state_machine import StateMachine
 
@@ -9,6 +9,8 @@ def time_out(e):
     return e[0] == 'TIME_OUT' # 애니메이션 끝나는 이벤트
 def mouse_right_click(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_RIGHT # 마우스 우클릭
+def jump_key_press(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE # 스페이스바 키 입력
 
 class Idle:
     def __init__(self,character):
@@ -117,7 +119,7 @@ class Character:
         self.state_machine = StateMachine(
             self.IDLE,
             {
-                self.IDLE : {mouse_left_click : self.ATTACK, mouse_right_click : self.DEFENCE},
+                self.IDLE : {mouse_left_click : self.ATTACK, mouse_right_click : self.DEFENCE, jump_key_press : self.JUMP},
                 self.ATTACK : {time_out : self.IDLE},
                 self.DEFENCE : {time_out : self.IDLE},
                 self.JUMP : {time_out : self.IDLE},
