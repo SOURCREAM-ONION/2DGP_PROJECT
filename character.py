@@ -46,9 +46,9 @@ class Defence:
 
     def draw(self):
         if self.frame == 0: # 프레임이 0일때 재생
-            self.character.image.clip_draw(128, 120, 32, 35, 400, 90, 50, 50)
+            self.character.image.clip_draw(128, 90, 32, 35, 400, 90, 50, 50)
         elif self.frame == 1: # 프레임이 1일때 재생
-            self.character.image.clip_draw(0, 90, 32, 35, 400, 90, 50, 50)
+            self.character.image.clip_draw(0, 60, 32, 35, 400, 90, 50, 50)
 
 class Attack:
     def __init__ (self,character):
