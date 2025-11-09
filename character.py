@@ -50,6 +50,22 @@ class Defence:
         elif self.frame == 1: # 프레임이 1일때 재생
             self.character.image.clip_draw(0, 60, 32, 35, 400, 90, 50, 50)
 
+class Jump:
+    def __init__ (self,character):
+        pass
+
+    def enter(self):
+        pass
+
+    def exit(self):
+        pass
+
+    def do(self):
+        pass
+
+    def draw(self):
+        pass
+
 class Attack:
     def __init__ (self,character):
         self.character = character
