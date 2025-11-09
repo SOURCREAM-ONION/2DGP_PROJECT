@@ -26,7 +26,9 @@ class Idle:
 
 class Defence:
     def __init__ (self,character):
-        pass
+        self.character = character
+        self.frame = 0 # 방어 애니메이션 프레임 초기화
+        self.frame_count = 2 # 방어 애니메이션 프레임 수
 
     def enter(self):
         pass
@@ -35,10 +37,16 @@ class Defence:
         pass
 
     def do(self):
-        pass
+        self.frame = self.frame + 1 # 프레임을 1씩 증가
+        if self.frame >= self.frame_count: # 프레임이 프레임 수보다 크거나 같으면
+            # 이벤트를 발생시켜 상태 전환
+            self.character.state_machine.handle_event(('TIME_OUT', None)) # 상태 전환
 
     def draw(self):
-        pass
+        if self.frame == 0: # 프레임이 0일때 재생
+            self.character.image.clip_draw(128, 120, 32, 35, 400, 90, 50, 50)
+        elif self.frame == 1: # 프레임이 1일때 재생
+            self.character.image.clip_draw(0, 90, 32, 35, 400, 90, 50, 50)
 
 class Attack:
     def __init__ (self,character):
