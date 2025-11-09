@@ -33,7 +33,7 @@ class Defence:
         self.frame_count = 2 # 방어 애니메이션 프레임 수
 
     def enter(self):
-        pass
+        self.frame = 0
 
     def exit(self):
         pass
@@ -90,8 +90,9 @@ class Character:
         self.state_machine = StateMachine(
             self.IDLE,
             {
-                self.IDLE : {mouse_left_click : self.ATTACK},
-                self.ATTACK : {time_out : self.IDLE}
+                self.IDLE : {mouse_left_click : self.ATTACK, mouse_right_click : self.DEFENCE},
+                self.ATTACK : {time_out : self.IDLE},
+                self.DEFENCE : {time_out : self.IDLE},
             }
         )
 
