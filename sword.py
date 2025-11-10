@@ -2,6 +2,38 @@ from pico2d import *
 from state_machine import StateMachine
 from character import Character
 
+class Idle_Sword:
+    def __init__(self, sword):
+        pass
+
+    def enter(self):
+        pass
+
+    def exit(self):
+        pass
+
+    def do(self):
+        pass
+
+    def draw(self):
+        pass
+
+class wield_sword:
+    def __init__(self, sword):
+        pass
+
+    def enter(self):
+        pass
+
+    def exit(self):
+        pass
+
+    def do(self):
+        pass
+
+    def draw(self):
+        pass
+
 class Sword:
     def __init__(self):
         self.x, self.y = 400, 90 # 검의 초기 위치
