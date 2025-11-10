@@ -1,6 +1,7 @@
 from pico2d import *
 from state_machine import StateMachine
-from character import Character
+from character import Character, mouse_left_click, time_out, mouse_right_click, jump_key_press
+
 
 class Idle_Sword:
     def __init__(self, sword):
@@ -43,7 +44,13 @@ class Sword:
         self.image = load_image('basic_sword.png') # 검의 이미지 로드
         self.IDLE_SWORD = Idle_Sword(self)
         self.WIELD_SWORD = Wield_Sword(self)
-        self.state_machine = StateMachine(self.IDLE_SWORD)
+        self.state_machine = StateMachine(
+            self.IDLE_SWORD,
+                    {
+                        self.IDLE_SWORD: {mouse_left_click: self.WIELD_SWORD},
+                        self.WIELD_SWORD: {time_out : self.IDLE_SWORD},
+                    }
+        )
 
 
 
