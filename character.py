@@ -23,10 +23,11 @@ class Idle:
         pass
 
     def do(self):
-        self.character.frame = (self.character.frame + 1) % 4 # 프레임을 0~3까지 반복
+        self.character.frame = (self.character.frame + 0.25) % 4 # 프레임을 0~3까지 반복
 
     def draw(self):
-        self.character.image.clip_draw(self.character.frame * 32, 95, 32, 35, 400, 90, 50, 50)
+        frame_index = int(self.character.frame)
+        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, 400, 90, 50, 50)
 
 class Defence:
     def __init__ (self,character):
