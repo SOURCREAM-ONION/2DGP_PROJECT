@@ -43,16 +43,3 @@ def draw(): # 월드가 만들어지는 부분
     update_canvas()
 
 def finish():pass
-
-
-
-
-open_canvas()
-init()
-while running:
-    handle_events()
-    update()
-    draw()
-    delay(0.07)
-finish()
-close_canvas()
