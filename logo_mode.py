@@ -1,5 +1,6 @@
 from pico2d import *
 import game_framework
+import title_mode
 
 image = None
 running = True
@@ -9,6 +10,7 @@ def init():
     global image, logo_start_time, running
     image = load_image('tuk_credit.png')
     logo_start_time = get_time()
+    game_framework.change_mode(title_mode)
 
     running = True
     logo_start_time = get_time()
