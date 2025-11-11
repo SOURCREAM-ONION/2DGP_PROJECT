@@ -1,5 +1,4 @@
 from pico2d import *
-
 import game_world
 from character import Character
 from sword import Sword
@@ -19,7 +18,7 @@ def handle_events():
 
 open_canvas()
 
-def reset_world(): # 월드가 새로 나올때 그려지는 부분
+def init(): # 월드가 새로 나올때 그려지는 부분
     global running
     global character
     global world
@@ -34,25 +33,26 @@ def reset_world(): # 월드가 새로 나올때 그려지는 부분
     character = Character()
     game_world.add_object(character, 0)
 
-reset_world()
-
-def update_world(): # 월드에 객체가 추가되는 부분
+def update(): # 월드에 객체가 추가되는 부분
     game_world.update()
 
 
-def render_world(): # 월드가 만들어지는 부분
+def draw(): # 월드가 만들어지는 부분
     clear_canvas()
     game_world.render()
     update_canvas()
 
+def finish():pass
 
 
 
 
+open_canvas()
+init()
 while running:
     handle_events()
-    update_world()
-    render_world()
+    update()
+    draw()
     delay(0.07)
-
+finish()
 close_canvas()
