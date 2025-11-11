@@ -14,6 +14,7 @@ def handle_events():
             running = False
         elif event.type == SDL_MOUSEBUTTONDOWN or event.type == SDL_KEYDOWN:
             character.handle_event(event)
+            sword.state_machine.handle_event(('INPUT', event))
 
 open_canvas()
 
