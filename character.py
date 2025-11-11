@@ -23,7 +23,7 @@ class Idle:
         pass
 
     def do(self):
-        self.character.frame = (self.character.frame + 0.25) % 4 # 프레임을 0~3까지 반복
+        self.character.frame = (self.character.frame + 0.01) % 4 # 프레임을 0~3까지 반복
 
     def draw(self):
         frame_index = int(self.character.frame)
@@ -33,7 +33,7 @@ class Defence:
     def __init__ (self,character):
         self.character = character
         self.frame = 0 # 방어 애니메이션 프레임 초기화
-        self.frame_count = 3 # 방어 애니메이션 프레임 수
+        self.frame_count = 2 # 방어 애니메이션 프레임 수
 
     def enter(self):
         self.frame = 0
@@ -42,15 +42,16 @@ class Defence:
         pass
 
     def do(self):
-        self.frame = self.frame + 1 # 프레임을 1씩 증가
+        self.frame = self.frame + 0.02 # 프레임을 1씩 증가
         if self.frame >= self.frame_count: # 프레임이 프레임 수보다 크거나 같으면
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None)) # 상태 전환
 
     def draw(self):
-        if self.frame == 1: # 프레임이 1일때 재생
+        frame_index = int(self.frame)
+        if frame_index == 0:
             self.character.image.clip_draw(128, 93, 32, 35, 200, 90, 50, 50)
-        elif self.frame == 2: # 프레임이 2일때 재생
+        elif frame_index == 1:
             self.character.image.clip_draw(0, 61, 32, 35, 200, 90, 50, 50)
 
 class Jump:
@@ -66,24 +67,25 @@ class Jump:
         pass
 
     def do(self):
-        self.frame = self.frame + 1 # 프레임을 1씩 증가
+        self.frame = self.frame + 0.05 # 프레임을 1씩 증가
         if self.frame >= self.frame_count:
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None))
 
     def draw(self):
-        if self.frame == 1: # 0번 프레임 재생
+        frame_index = int(self.frame)
+        if frame_index == 0:
             self.character.image.clip_draw(32, 60, 32, 35, 200, 90, 50, 50)
-        elif self.frame == 2: # 1번 프레임 재생
+        elif frame_index == 1:
             self.character.image.clip_draw(64, 61, 32, 35, 200, 90, 50, 50)
-        elif self.frame == 3: # 2번 프레임 재생
+        elif frame_index == 2:
             self.character.image.clip_draw(96, 61, 32, 35, 200, 90, 50, 50)
 
 class Attack:
     def __init__ (self,character):
         self.character = character
         self.frame = 0
-        self.frame_count = 4
+        self.frame_count = 3
 
     def enter(self):
         self.frame = 0
@@ -92,20 +94,18 @@ class Attack:
         pass
 
     def do(self):
-        self.frame = self.frame + 1
+        self.frame = self.frame + 0.1
         if self.frame >= self.frame_count:
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None))
 
     def draw(self):
-        # 현재 프레임에 해당하는 이미지만 그리기
-        if self.frame == 0:
-            self.character.image.clip_draw(128, 60, 32, 35, 200, 90, 50, 50)
-        elif self.frame == 1:
+        frame_index = int(self.frame)
+        if frame_index == 0:
             self.character.image.clip_draw(0, 29, 32, 35, 200, 90, 50, 50)
-        elif self.frame == 2:
+        elif frame_index == 1:
             self.character.image.clip_draw(32, 29, 32, 35, 200, 90, 50, 50)
-        elif self.frame == 3:
+        elif frame_index == 2:
             self.character.image.clip_draw(64, 29, 32, 35, 200, 90, 50, 50)
 
 class Character:
