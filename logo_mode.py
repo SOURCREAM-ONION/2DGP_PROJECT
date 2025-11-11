@@ -5,8 +5,11 @@ running = True
 logo_start_time = 0.0
 
 def init():
-    global image, logo_start_time
+    global image, logo_start_time, running
     image = load_image('tuk_credit.png')
+    logo_start_time = get_time()
+
+    running = True
     logo_start_time = get_time()
 
 def finish():
@@ -14,10 +17,10 @@ def finish():
     del image
 
 def update():
-    global running
-    current_time = get_time()
-    if current_time - logo_start_time >= 2.0:
-        running = False
+    global logo_start_time
+    if get_time() - logo_start_time > 2.0:
+        logo_start_time = get_time()
+        game_framework.quit()
 
 def draw():
     clear_canvas()
