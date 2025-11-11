@@ -1,5 +1,6 @@
 from pico2d import *
 
+import game_world
 from character import Character
 from sword import Sword
 
@@ -28,22 +29,20 @@ def reset_world(): # 월드가 새로 나올때 그려지는 부분
     world = []
 
     sword = Sword()
-    world.append(sword)
+    game_world.add_object(sword, 0)
 
     character = Character()
-    world.append(character)
+    game_world.add_object(character, 2)
 
 reset_world()
 
 def update_world(): # 월드에 객체가 추가되는 부분
-    for game_object in world:
-        game_object.update()
+    game_world.update()
 
 
 def render_world(): # 월드가 만들어지는 부분
     clear_canvas()
-    for game_object in world:
-        game_object.draw()
+    game_world.render()
     update_canvas()
 
 
