@@ -24,7 +24,7 @@ class Idle_Sword:
 
 class Wield_Sword:
     def __init__(self, sword):
-        pass
+        self.sword = sword
 
     def enter(self):
         pass
@@ -36,7 +36,7 @@ class Wield_Sword:
         pass
 
     def draw(self):
-        pass
+        self. sword.image.clip_draw(0, 0, 122, 122, self.sword.x, self.sword.y, 50, 50)
 
 class Sword:
     def __init__(self):
