@@ -2,6 +2,9 @@ from pico2d import *
 import game_world
 from character import Character
 from sword import Sword
+import game_framework
+import title_mode
+
 
 
 def handle_events():
@@ -9,10 +12,13 @@ def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
-            running = False
+            game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
+            game_framework.change_mode(title_mode)
         elif event.type == SDL_MOUSEBUTTONDOWN or event.type == SDL_KEYDOWN:
+            character.handle_event(event)
+            sword.state_machine.handle_event(('INPUT', event))
+        else:
             character.handle_event(event)
             sword.state_machine.handle_event(('INPUT', event))
 
