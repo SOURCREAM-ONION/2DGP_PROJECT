@@ -29,10 +29,10 @@ def reset_world(): # 월드가 새로 나올때 그려지는 부분
     world = []
 
     sword = Sword()
-    game_world.add_object(sword, 0)
+    game_world.add_object(sword, 2)
 
     character = Character()
-    game_world.add_object(character, 2)
+    game_world.add_object(character, 0)
 
 reset_world()
 
