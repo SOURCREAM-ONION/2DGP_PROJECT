@@ -36,7 +36,7 @@ class Wield_Sword:
         pass
 
     def do(self):
-        self.frame = self.frame + 0.09
+        self.frame = self.frame + 0.2
         if self.frame >= self.frame_count:
             self.sword.state_machine.handle_event(('TIME_OUT', None))
 
