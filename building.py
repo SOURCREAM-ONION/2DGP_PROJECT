@@ -2,7 +2,8 @@ from pico2d import *
 
 class Building:
     def __init__(self):
-        pass
+        self.x, self.y = 200, 300 # 건물의 초기 위치
+        self.building = load_image('Building1.png')
 
     def enter(self):
         pass
@@ -14,4 +15,4 @@ class Building:
         pass
 
     def draw(self):
-        pass
+        self.building.draw_now()
