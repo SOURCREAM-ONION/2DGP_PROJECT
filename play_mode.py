@@ -4,6 +4,7 @@ from character import Character
 from sword import Sword
 import game_framework
 import title_mode
+from building import Building
 
 
 
@@ -24,6 +25,7 @@ def init(): # 월드가 새로 나올때 그려지는 부분
     global character
     global world
     global sword
+    global building
 
     running = True
     world = []
@@ -34,6 +36,10 @@ def init(): # 월드가 새로 나올때 그려지는 부분
 
     character = Character()
     game_world.add_object(character, 0)
+
+    building = Building()
+    game_world.add_object(building, 1)
+
 
 def update(): # 월드에 객체가 추가되는 부분
     game_world.update()
