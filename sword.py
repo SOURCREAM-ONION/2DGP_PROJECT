@@ -76,9 +76,11 @@ class Sword:
 
     def draw(self):
         self.state_machine.draw()
+        if self.state_machine.current_state == self.WIELD_SWORD:
+            draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 25, self.y - 25, self.x + 25, self.y + 25
+        return self.x - 40, self.y - 10, self.x + 40, self.y + 40
 
     def handle_event(self, event):
         pass
