@@ -19,5 +19,13 @@ class Building:
         pass
 
     def draw(self):
-        self.building.clip_draw(0, 307, 1080, 307, self.x, self.y, 300, 20)
-        self.building.clip_draw(0, 614, 1080, 307, self.x, self.y + 50, 300, 20)
+        self.building.clip_draw(0, 307, 1080, 307, self.x, self.y, 400, 30)
+        self.building.clip_draw(0, 614, 1080, 307, self.x, self.y + 35, 400, 30)
+        self.building.clip_draw(0, 921, 1080, 307, self.x, self.y + 75, 400, 30)
+        self.building.clip_draw(0, 1228, 1080, 307, self.x, self.y + 110, 400, 30)
+        self.building.clip_draw(0, 1535, 1080, 307, self.x, self.y + 145, 400, 30)
+        self.building.clip_draw(0, 1842, 1080, 307, self.x, self.y + 180, 400, 30)
+        self.building.clip_draw(0, 2149, 1080, 307, self.x, self.y + 215, 400, 30)
+        self.building.clip_draw(0, 2456, 1080, 307, self.x, self.y + 250, 400, 30)
+        self.building.clip_draw(0, 2763, 1080, 307, self.x, self.y + 285, 400, 30)
+        self.building.clip_draw(0, 3070, 1080, 307, self.x, self.y + 320, 400, 30)
