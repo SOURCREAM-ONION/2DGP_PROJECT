@@ -12,7 +12,7 @@ class Building:
         pass
 
     def update(self):
-        if self.y > 200:
+        if self.y > 20:
             self.y -= 0.5
 
     def do(self):
