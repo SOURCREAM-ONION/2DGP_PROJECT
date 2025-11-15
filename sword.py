@@ -77,5 +77,8 @@ class Sword:
     def draw(self):
         self.state_machine.draw()
 
+    def get_bb(self):
+        pass
+
     def handle_event(self, event):
         pass
