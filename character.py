@@ -15,6 +15,7 @@ def jump_key_press(e):
 class Idle:
     def __init__(self,character):
         self.character = character
+        self.y = character.y
 
     def enter(self):
         pass
@@ -27,11 +28,12 @@ class Idle:
 
     def draw(self):
         frame_index = int(self.character.frame)
-        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, 200, 90, 50, 50)
+        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, 200, self.y, 50, 50)
 
 class Defence:
     def __init__ (self,character):
         self.character = character
+        self.y = character.y
         self.frame = 0 # 방어 애니메이션 프레임 초기화
         self.frame_count = 2 # 방어 애니메이션 프레임 수
 
@@ -50,13 +52,14 @@ class Defence:
     def draw(self):
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(128, 93, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(128, 93, 32, 35, 200, self.y, 50, 50)
         elif frame_index == 1:
-            self.character.image.clip_draw(0, 61, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(0, 61, 32, 35, 200, self.y, 50, 50)
 
 class Jump:
     def __init__ (self,character):
         self.character = character
+        self.y = character.y
         self.frame = 0 # 점프 애니메이션 프레임 초기화
         self.frame_count = 3 # 점프 애니메이션 프레임 수
 
@@ -75,15 +78,16 @@ class Jump:
     def draw(self):
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(32, 60, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(32, 60, 32, 35, 200, self.y, 50, 50)
         elif frame_index == 1:
-            self.character.image.clip_draw(64, 61, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(64, 61, 32, 35, 200, self.y, 50, 50)
         elif frame_index == 2:
-            self.character.image.clip_draw(96, 61, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(96, 61, 32, 35, 200, self.y, 50, 50)
 
 class Attack:
     def __init__ (self,character):
         self.character = character
+        self.y = character.y
         self.frame = 0
         self.frame_count = 3
 
@@ -102,15 +106,15 @@ class Attack:
     def draw(self):
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(0, 29, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(0, 29, 32, 35, 200, self.y, 50, 50)
         elif frame_index == 1:
-            self.character.image.clip_draw(32, 29, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(32, 29, 32, 35, 200, self.y, 50, 50)
         elif frame_index == 2:
-            self.character.image.clip_draw(64, 29, 32, 35, 200, 90, 50, 50)
+            self.character.image.clip_draw(64, 29, 32, 35, 200, self.y, 50, 50)
 
 class Character:
     def __init__(self): # 캐릭터가 처음 생성될 때 나오는 부분
-        self.x, self.y = 200, 90 # 캐릭터의 초기 위치
+        self.x, self.y = 200, 30 # 캐릭터의 초기 위치
         self.frame = 0 # 캐릭터의 프레임 초기화
         self.image = load_image('Char1_1.png') # 캐릭터의 이미지 로드
         self.IDLE = Idle(self) # Idle 상태 생성
