@@ -18,6 +18,9 @@ class Building:
     def do(self):
         pass
 
+    def get_bb(self):
+        return self.x - 200, self.y - 15, self.x + 200, self.y + 325
+
     def draw(self):
         self.building.clip_draw(0, 307, 1080, 307, self.x, self.y, 400, 30)
         self.building.clip_draw(0, 614, 1080, 307, self.x, self.y + 35, 400, 30)
