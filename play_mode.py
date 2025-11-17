@@ -44,7 +44,7 @@ def init(): # 월드가 새로 나올때 그려지는 부분
 def update(): # 월드에 객체가 추가되는 부분
     game_world.update()
 
-    if game_world.collide(building, sword):
+    if sword.is_attacking() and game_world.collide(building, sword):
         print("Collision Detected between Building and Sword")
         game_world.remove_object(building)
 

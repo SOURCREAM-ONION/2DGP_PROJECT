@@ -88,5 +88,8 @@ class Sword:
     def get_bb(self):
         return self.x - 40, self.y - 10, self.x + 40, self.y + 40
 
+    def is_attacking(self):
+        return self.state_machine.current_state == self.WIELD_SWORD
+
     def handle_event(self, event):
         pass
