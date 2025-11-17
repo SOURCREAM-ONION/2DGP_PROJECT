@@ -1,7 +1,9 @@
 from pico2d import load_image
 from sdl2 import SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_KEYDOWN, SDLK_SPACE
-
 from state_machine import StateMachine
+
+import game_framework
+import game_world
 
 def mouse_left_click(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_LEFT # 마우스 좌클릭
@@ -11,6 +13,11 @@ def mouse_right_click(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_RIGHT # 마우스 우클릭
 def jump_key_press(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE # 스페이스바 키 입력
+
+# character Action Speed
+TIME_PER_ACTION = 0.5 # 한 동작에 걸리는 시간
+ACTION_PER_TIME = 1.0 / TIME_PER_ACTION # 초당 동작 수
+FRAMES_PER_ACTION = 4 # 동작당 프레임 수
 
 class Idle:
     def __init__(self,character):
@@ -24,7 +31,7 @@ class Idle:
         pass
 
     def do(self):
-        self.character.frame = (self.character.frame + 0.01) % 4 # 프레임을 0~3까지 반복
+        self.character.frame = (self.character.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4 # 프레임을 0~3까지 반복
 
     def draw(self):
         frame_index = int(self.character.frame)
