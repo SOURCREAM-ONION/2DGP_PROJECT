@@ -51,7 +51,7 @@ class Defence:
         pass
 
     def do(self):
-        self.frame = self.frame + 0.02 # 프레임을 1씩 증가
+        self.frame = self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time # 프레임을 1씩 증가
         if self.frame >= self.frame_count: # 프레임이 프레임 수보다 크거나 같으면
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None)) # 상태 전환
@@ -77,7 +77,7 @@ class Jump:
         pass
 
     def do(self):
-        self.frame = self.frame + 0.05 # 프레임을 1씩 증가
+        self.frame = self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time # 프레임을 1씩 증가
         if self.frame >= self.frame_count:
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None))
@@ -92,6 +92,9 @@ class Jump:
             self.character.image.clip_draw(96, 61, 32, 35, 200, self.y, 50, 50)
 
 class Attack:
+    FRAMES_PER_ACTION = 3 # 공격 애니메이션 프레임 수
+    ACTION_PER_TIME = 1.0 / 0.5 # 공격 애니메이션 속도 (0.5초에 한 번 동작)
+
     def __init__ (self,character):
         self.character = character
         self.y = character.y
@@ -105,7 +108,7 @@ class Attack:
         pass
 
     def do(self):
-        self.frame = self.frame + 0.1
+        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time
         if self.frame >= self.frame_count:
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None))
