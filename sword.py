@@ -24,13 +24,15 @@ class Idle_Sword:
         self.sword.image.clip_composite_draw(0, 0, 122, 122, -math.pi / 2, '' ,self.sword.x, self.sword.y, 50, 50)
 
 class Wield_Sword:
+    images = None
+
     def __init__(self, sword):
-        self.y = 39
+        self.y = 35
         self.sword = sword
         self.frame = 0
         self.frame_count = 6
         self.TIME_PER_ACTION = 1.0 / 0.09 # 검 휘두르기 애니메이션 속도
-        self.ACTION_PER_TIME = 1.0 / 0.2 # 검 휘두르기 애니메이션 동작 시간
+        self.ACTION_PER_TIME = 1.0 / 0.09 # 검 휘두르기 애니메이션 동작 시간
         self.FRAMES_PER_ACTION = 6 # 검 휘두르기 애니메이션 프레임 수
 
     def enter(self):
@@ -61,7 +63,7 @@ class Wield_Sword:
 
 class Sword:
     def __init__(self):
-        self.x, self.y = 205, 27 # 검의 초기 위치
+        self.x, self.y = 203, 27 # 검의 초기 위치
         self.image = load_image('basic_sword.png') # 검의 이미지 로드
         self.IDLE_SWORD = Idle_Sword(self)
         self.WIELD_SWORD = Wield_Sword(self)
