@@ -44,9 +44,9 @@ def init(): # 월드가 새로 나올때 그려지는 부분
 def update(): # 월드에 객체가 추가되는 부분
     game_world.update()
 
-    if sword.is_attacking() and game_world.collide(building, sword):
-        print("Collision Detected between Building and Sword")
-        game_world.remove_object(building)
+    if sword.is_attacking() and game_world.collide(building, sword): # 검이 휘둘러지고 있고 건물과 충돌했을 때 (실제로 충돌처리 되는 코드)
+        print("Collision Detected between Building and Sword") # 충돌 감지 메시지 출력
+        game_world.remove_object(building) # 건물 제거
 
 def draw(): # 월드가 만들어지는 부분
     clear_canvas()

@@ -8,7 +8,6 @@ class Idle_Sword:
     def __init__(self, sword):
         self.sword = sword
         self.frame = 0 # 검 대기 애니메이션 프레임 초기화
-        self.frame_count = 6 # 검 대기 애니메이션 프레임 수
 
     def enter(self):
         self.frame = 0
@@ -42,7 +41,7 @@ class Wield_Sword:
         pass
 
     def do(self):
-        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time
+        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time # 프레임을 시간처리
         if self.frame >= self.frame_count:
             self.sword.state_machine.handle_event(('TIME_OUT', None))
 
@@ -70,8 +69,8 @@ class Sword:
         self.state_machine = StateMachine(
             self.IDLE_SWORD,
                     {
-                        self.IDLE_SWORD: {mouse_left_click: self.WIELD_SWORD},
-                        self.WIELD_SWORD: {time_out : self.IDLE_SWORD},
+                        self.IDLE_SWORD: {mouse_left_click: self.WIELD_SWORD}, # IDLE상태일 때 일어나는 이벤트
+                        self.WIELD_SWORD: {time_out : self.IDLE_SWORD}, # WIELD상태일 때 일어나는 이벤트
                     }
         )
 
@@ -82,8 +81,8 @@ class Sword:
 
     def draw(self):
         self.state_machine.draw()
-        if self.state_machine.current_state == self.WIELD_SWORD:
-            draw_rectangle(*self.get_bb())
+        if self.state_machine.current_state == self.WIELD_SWORD: # 만약 검을 휘두르면
+            draw_rectangle(*self.get_bb()) # 검의 충돌 박스 그리기 (실제 충돌처리와는 관련 X)
 
     def get_bb(self):
         return self.x - 40, self.y - 10, self.x + 40, self.y + 40

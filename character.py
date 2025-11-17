@@ -14,7 +14,8 @@ def mouse_right_click(e):
 def jump_key_press(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE # 스페이스바 키 입력
 
-# character Action Speed
+# 캐릭터의 시간변수
+# IDLE상태와 DEFENCE상태에서 공통으로 사용 (점프와 공격은 별도 처리)
 TIME_PER_ACTION = 0.5 # 한 동작에 걸리는 시간
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION # 초당 동작 수
 FRAMES_PER_ACTION = 4 # 동작당 프레임 수
@@ -80,7 +81,7 @@ class Jump:
         pass
 
     def do(self):
-        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time # 프레임을 1씩 증가
+        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time # 프레임을 시간처리
         if self.frame >= self.frame_count:
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None))
@@ -111,7 +112,7 @@ class Attack:
         pass
 
     def do(self):
-        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time
+        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time # 프레임을 시간처리
         if self.frame >= self.frame_count:
             # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None))
