@@ -7,6 +7,20 @@ import title_mode
 from building import Building
 
 
+# 충돌 체크 함수 추가
+def collide_bb(bb_a, bb_b):
+    if bb_a is None or bb_b is None:  # None 체크 추가
+        return False
+
+    left_a, bottom_a, right_a, top_a = bb_a
+    left_b, bottom_b, right_b, top_b = bb_b
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+    return True
+
 
 def handle_events():
     global running
@@ -20,7 +34,8 @@ def handle_events():
             character.handle_event(event)
             sword.state_machine.handle_event(('INPUT', event))
 
-def init(): # 월드가 새로 나올때 그려지는 부분
+
+def init():  # 월드가 새로 나올때 그려지는 부분
     global running
     global character
     global world
@@ -41,17 +56,28 @@ def init(): # 월드가 새로 나올때 그려지는 부분
     game_world.add_object(building, 0)
 
 
-def update(): # 월드에 객체가 추가되는 부분
+def update():  # 월드에 객체가 추가되는 부분
     game_world.update()
 
-    if sword.is_attacking() and game_world.collide(building, sword): # 검이 휘둘러지고 있고 건물과 충돌했을 때 (실제로 충돌처리 되는 코드)
-        print("Collision Detected between Building and Sword") # 충돌 감지 메시지 출력
-        game_world.remove_object(building) # 건물 제거
+    if sword.is_attacking():
+        # 1층 충돌 체크
+        if collide_bb(building.get_bb_floor1(), sword.get_bb()):
+            building.destroy_floor(0)  # 1층만 파괴
 
-def draw(): # 월드가 만들어지는 부분
+        # 2층 충돌 체크
+        if collide_bb(building.get_bb_floor2(), sword.get_bb()):
+            building.destroy_floor(1)  # 2층만 파괴
+
+        # 3층 충돌 체크
+        if collide_bb(building.get_bb_floor3(), sword.get_bb()):
+            building.destroy_floor(2)  # 3층만 파괴
+
+
+def draw():  # 월드가 만들어지는 부분
     clear_canvas()
     game_world.render()
     update_canvas()
 
-def finish(): # 월드가 사라질때 지워지는 부분
+
+def finish():  # 월드가 사라질때 지워지는 부분
     pass
