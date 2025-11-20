@@ -13,6 +13,12 @@ class Building:
         self.floors.append({'clip_y': 307, 'y_offset': 0, 'alive': True})  # 1층
         self.floors.append({'clip_y': 614, 'y_offset': 101, 'alive': True})  # 2층
         self.floors.append({'clip_y': 921, 'y_offset': 202, 'alive': True})  # 3층
+        self.floors.append({'clip_y': 1228, 'y_offset': 303, 'alive': True})  # 4층
+        self.floors.append({'clip_y': 1535, 'y_offset': 404, 'alive': True})  # 5층
+        self.floors.append({'clip_y': 1842, 'y_offset': 505, 'alive': True})  # 6층
+        self.floors.append({'clip_y': 2149, 'y_offset': 606, 'alive': True})  # 7층
+        self.floors.append({'clip_y': 2456, 'y_offset': 707, 'alive': True})  # 8층
+        self.floors.append({'clip_y': 2763, 'y_offset': 808, 'alive': True})  # 9층
 
     def enter(self):
         pass
@@ -57,6 +63,42 @@ class Building:
         floor_y = self.y + self.floors[2]['y_offset']
         return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50
 
+    def get_bb_floor4(self):
+        if not self.floors[3]['alive']:
+            return None
+        floor_y = self.y + self.floors[3]['y_offset']
+        return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50
+
+    def get_bb_floor5(self):
+        if not self.floors[4]['alive']:
+            return None
+        floor_y = self.y + self.floors[4]['y_offset']
+        return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50
+
+    def get_bb_floor6(self):
+        if not self.floors[5]['alive']:
+            return None
+        floor_y = self.y + self.floors[5]['y_offset']
+        return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50
+
+    def get_bb_floor7(self):
+        if not self.floors[6]['alive']:
+            return None
+        floor_y = self.y + self.floors[6]['y_offset']
+        return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50
+
+    def get_bb_floor8(self):
+        if not self.floors[7]['alive']:
+            return None
+        floor_y = self.y + self.floors[7]['y_offset']
+        return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50
+
+    def get_bb_floor9(self):
+        if not self.floors[8]['alive']:
+            return None
+        floor_y = self.y + self.floors[8]['y_offset']
+        return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50
+
     # 층 파괴 함수
     def destroy_floor(self, floor_num):
         if 0 <= floor_num < len(self.floors):
@@ -78,3 +120,15 @@ class Building:
             draw_rectangle(*self.get_bb_floor2())  # 2층
         if self.floors[2]['alive']:
             draw_rectangle(*self.get_bb_floor3())  # 3층
+        if self.floors[3]['alive']:
+            draw_rectangle(*self.get_bb_floor4())  # 4층
+        if self.floors[4]['alive']:
+            draw_rectangle(*self.get_bb_floor5())  # 5층
+        if self.floors[5]['alive']:
+            draw_rectangle(*self.get_bb_floor6())  # 6층
+        if self.floors[6]['alive']:
+            draw_rectangle(*self.get_bb_floor7())  # 7층
+        if self.floors[7]['alive']:
+            draw_rectangle(*self.get_bb_floor8())  # 8층
+        if self.floors[8]['alive']:
+            draw_rectangle(*self.get_bb_floor9())  # 9층

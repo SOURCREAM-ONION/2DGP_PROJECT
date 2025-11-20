@@ -72,6 +72,24 @@ def update():  # 월드에 객체가 추가되는 부분
         if collide_bb(building.get_bb_floor3(), sword.get_bb()):
             building.destroy_floor(2)  # 3층만 파괴
 
+        if collide_bb(building.get_bb_floor4(), sword.get_bb()):
+            building.destroy_floor(3)  # 4층만 파괴
+
+        if collide_bb(building.get_bb_floor5(), sword.get_bb()):
+            building.destroy_floor(4)  # 5층만 파괴
+
+        if collide_bb(building.get_bb_floor6(), sword.get_bb()):
+            building.destroy_floor(5)  # 6층만 파괴
+
+        if collide_bb(building.get_bb_floor7(), sword.get_bb()):
+            building.destroy_floor(6)  # 7층만 파괴
+
+        if collide_bb(building.get_bb_floor8(), sword.get_bb()):
+            building.destroy_floor(7)  # 8층만 파괴
+
+        if collide_bb(building.get_bb_floor9(), sword.get_bb()):
+            building.destroy_floor(8)  # 9층만 파괴
+
 
 def draw():  # 월드가 만들어지는 부분
     clear_canvas()
