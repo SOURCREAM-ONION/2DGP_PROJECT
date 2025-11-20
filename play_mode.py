@@ -4,7 +4,7 @@ from character import Character
 from sword import Sword
 import game_framework
 import title_mode
-from building import Building
+from building import create_random_building,Building
 
 
 # 충돌 체크 함수 추가
@@ -53,7 +53,7 @@ def init():  # 월드가 새로 나올때 그려지는 부분
     character = Character()
     game_world.add_object(character, 1)
 
-    building = Building()
+    building = create_random_building()
     game_world.add_object(building, 0)
 
     spawn_timer = 0.0
@@ -66,7 +66,7 @@ def update():  # 월드에 객체가 추가되는 부분
     spawn_timer += game_framework.frame_time
     if spawn_timer >= 15.0:
         spawn_timer = 0.0
-        new_building = Building()
+        new_building = create_random_building()
         game_world.add_object(new_building, 0)
 
     # 검 공격 중일 때 모든 빌딩과 충돌 체크
