@@ -3,7 +3,7 @@ import random
 
 # Building의 부모클래스 정의
 class Building:
-    def __init__(self, image_file='Building1.png'):
+    def __init__(self, image_file='Building1.png', num_floors=9): # 기본 건물 이미지 파일과 층 수
         self.x, self.y = 200, 1000  # 건물의 초기 위치
         self.building = load_image(image_file)  # 건물 이미지 로드
         self.framex = 450  # 건물 프레임 크기 x
@@ -11,12 +11,14 @@ class Building:
 
         # 층 정보 초기화
         self.floors = []
-        for i in range(9): # 9층 건물
+        for i in range(num_floors): # 각 층에 대한 정보 저장 (부모클래스 이기 때문)
             self.floors.append({
                 'clip_y': i * 307, # 각 층의 클립 y 위치
                 'y_offset': i * 101, # 각 층의 y 오프셋
                 'alive': True # 층이 살아있는지 여부
             })
+
+        self.num_floors = num_floors # 층 수 저장
 
     def update(self):
         # 각 층이 개별적으로 바닥(y=20)으로 내려옴
@@ -41,7 +43,7 @@ class Building:
                                         self.x, self.y + floor['y_offset'],
                                         self.framex, self.framey)
             # 충돌 박스 함수들
-        for i in range(9): # 9층 건물
+        for i in range(self.num_floors): # 9층 건물
             bb = self.get_bb_floor(i) # 각 층의 충돌 박스 가져오기
             if bb: # 충돌 박스가 존재하면
                 draw_rectangle(*bb) # 충돌 박스 그리기
@@ -66,7 +68,7 @@ class Building:
 # 빌딩의 자식 클래스 (빌딩 자식 클래스의 숫자는 파일의 숫자와 같게 함)
 class Building52(Building):
     def __init__(self):
-        super().__init__('Building52.png')  # 부모의 __init__ 호출
+        super().__init__('Building52.png',num_floors=7)  # 부모의 __init__ 호출
         print("자식 클래스 초기화 완료")
 
 def create_random_building():

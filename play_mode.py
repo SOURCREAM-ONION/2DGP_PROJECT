@@ -73,9 +73,9 @@ def update():  # 월드에 객체가 추가되는 부분
     if sword.is_attacking():
         for obj in game_world.world[0]:
             if isinstance(obj, Building):
-                for i in range(9):
-                    bb_method = getattr(obj, f'get_bb_floor{i+1}')
-                    if collide_bb(bb_method(), sword.get_bb()):
+                for i in range(obj.num_floors):
+                    bb = obj.get_bb_floor(i)
+                    if bb and collide_bb(bb, sword.get_bb()):
                         obj.destroy_floor(i)
 
 
