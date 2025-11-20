@@ -54,27 +54,18 @@ class Building:
         floor_y = self.y + self.floors[floor_num]['y_offset'] # 층의 현재 y 위치 계산
         return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50 # 충돌 박스 좌표 반환
 
-    # 기존 get_bb_floor1~9 메서드들 (호환성 유지)
-    def get_bb_floor1(self): return self.get_bb_floor(0)
-    def get_bb_floor2(self): return self.get_bb_floor(1)
-    def get_bb_floor3(self): return self.get_bb_floor(2)
-    def get_bb_floor4(self): return self.get_bb_floor(3)
-    def get_bb_floor5(self): return self.get_bb_floor(4)
-    def get_bb_floor6(self): return self.get_bb_floor(5)
-    def get_bb_floor7(self): return self.get_bb_floor(6)
-    def get_bb_floor8(self): return self.get_bb_floor(7)
-    def get_bb_floor9(self): return self.get_bb_floor(8)
 
 # 빌딩의 자식 클래스 (빌딩 자식 클래스의 숫자는 파일의 숫자와 같게 함)
 class Building52(Building):
     def __init__(self):
-        super().__init__('Building52.png',num_floors=7)  # 부모의 __init__ 호출
+        super().__init__('Building52.png',num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
         print("자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building41(Building):
     def __init__(self):
-        super().__init__('Building41.png',num_floors=11)  # 부모의 __init__ 호출
+        super().__init__('Building41.png',num_floors=11)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
         print("자식 클래스 초기화 완료") # 디버그 메시지
+
 def create_random_building():
     buildings = [Building, Building52, Building41]
     return random.choice(buildings)()
