@@ -3,9 +3,9 @@ import random
 
 # Building의 부모클래스 정의
 class Building:
-    def __init__(self):
+    def __init__(self, image_file='Building1.png'):
         self.x, self.y = 200, 1000  # 건물의 초기 위치
-        self.building = load_image('Building1.png')  # 건물 이미지 로드
+        self.building = load_image(image_file)  # 건물 이미지 로드
         self.framex = 450  # 건물 프레임 크기 x
         self.framey = 100  # 건물 프레임 크기 y
 
@@ -63,6 +63,12 @@ class Building:
     def get_bb_floor8(self): return self.get_bb_floor(7)
     def get_bb_floor9(self): return self.get_bb_floor(8)
 
+# 빌딩의 자식 클래스 (빌딩 자식 클래스의 숫자는 파일의 숫자와 같게 함)
+class Building52(Building):
+    def __init__(self):
+        super().__init__('Building52.png')  # 부모의 __init__ 호출
+        print("자식 클래스 초기화 완료")
+
 def create_random_building():
-    buildings = [Building]
+    buildings = [Building, Building52]
     return random.choice(buildings)()
