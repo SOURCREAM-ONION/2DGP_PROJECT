@@ -114,12 +114,20 @@ class Sword:
         self.state_machine.draw()
         if self.state_machine.current_state == self.WIELD_SWORD: # 만약 검을 휘두르면
             draw_rectangle(*self.get_bb()) # 검의 충돌 박스 그리기 (실제 충돌처리와는 관련 X)
+        elif self.state_machine.current_state == self.DEFENCE_SWORD: # 만약 검으로 방어하면
+            draw_rectangle(*self.get_aa()) # 검의 충돌 박스 그리기 (실제 충돌처리와는 관련 X)
+
+    def get_aa(self):
+        return self.x - 40, self.y - 10, self.x + 40, self.y + 40
 
     def get_bb(self):
         return self.x - 40, self.y - 10, self.x + 40, self.y + 60
 
     def is_attacking(self):
         return self.state_machine.current_state == self.WIELD_SWORD
+
+    def is_defending(self):
+        return self.state_machine.current_state == self.DEFENCE_SWORD
 
     def handle_event(self, event):
         pass
