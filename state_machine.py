@@ -16,7 +16,7 @@ class StateMachine:
                 next_state = self.transitions[self.current_state][event_check]
                 self.current_state.exit() # 현재 상태 종료
                 next_state.enter() # 다음 상태 진입
-                print(f'State Change: {self.current_state.__class__.__name__} ======= {event} ======= {next_state.__class__.__name__}')
+                #print(f'State Change: {self.current_state.__class__.__name__} ======= {event} ======= {next_state.__class__.__name__}')
                 self.current_state = next_state # 상태 전환
                 return
-        print(f'Unhandled event {event} in state {self.current_state.__class__.__name__}')
+        #print(f'Unhandled event {event} in state {self.current_state.__class__.__name__}')
