@@ -78,6 +78,14 @@ def update():  # 월드에 객체가 추가되는 부분
                     if bb and collide_bb(bb, sword.get_bb()):
                         obj.destroy_floor(i)
 
+    if sword.is_defending():
+        for obj in game_world.world[0]:
+            if isinstance(obj, Building):
+                for i in range(obj.num_floors):
+                    bb = obj.get_bb_floor(i)
+                    if bb and collide_bb(bb, sword.get_bb()):
+                        obj.push_up()
+
 
 def draw():  # 월드가 만들어지는 부분
     clear_canvas()
