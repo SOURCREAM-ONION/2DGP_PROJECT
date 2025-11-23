@@ -1,11 +1,13 @@
 from pico2d import *
 import random
 
+import game_framework
+
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 20.0  # Km / Hour
-RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+DROP_SPEED_KMPH = 20.0  # Km / Hour
+DROP_SPEED_MPM = (DROP_SPEED_KMPH * 1000.0 / 60.0)
+DROP_SPEED_MPS = (DROP_SPEED_MPM / 60.0)
+DROP_SPEED_PPS = (DROP_SPEED_MPS * PIXEL_PER_METER)
 
 # Building의 부모클래스 정의
 class Building:
@@ -35,13 +37,19 @@ class Building:
                 target_y = 20  # 목표 y 위치
                 current_y = self.y + floor['y_offset']
                 if current_y > target_y:
-                    floor['y_offset'] -= 0.5  # 각 층이 개별적으로 내려옴
+                    floor['y_offset'] -= DROP_SPEED_PPS * game_framework.frame_time  # 각 층이 개별적으로 내려옴
 
     # 층 파괴 함수
     def destroy_floor(self, floor_num):
         if 0 <= floor_num < len(self.floors):
             self.floors[floor_num]['alive'] = False # 해당 층을 파괴 상태로 변경
             print(f"{floor_num + 1}층 파괴됨!")
+
+    def push_up(self):
+        PUSH_SPEED_PPS = DROP_SPEED_PPS * 5.0
+        for floor in self.floors:
+            if floor['alive']:
+                floor['y_offset'] += PUSH_SPEED_PPS * game_framework.frame_time  # 각 층이 개별적으로 올라옴
 
     def draw(self):
         # 살아있는 층만 그리기
