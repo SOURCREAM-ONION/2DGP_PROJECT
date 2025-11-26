@@ -36,7 +36,7 @@ class Idle:
 
     def draw(self):
         frame_index = int(self.character.frame)
-        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, 200, self.y, 50, 50)
+        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, 200, self.character.y, 50, 50)
 
 class Defence:
     def __init__ (self,character):
@@ -67,12 +67,11 @@ class Defence:
 class Jump:
     FRAMES_PER_ACTION = 3       # 점프 애니메이션 프레임 수
     ACTION_PER_TIME = 1.0 / 0.2 # 점프 애니메이션 속도 (0.1초에 한 번 동작)
-    JUMP_SPEED = 300            # 점프 속도
-    GRAVITY = 600               # 중력 가속도
+    JUMP_SPEED = 150            # 점프 속도
+    GRAVITY = 400               # 중력 가속도
 
     def __init__ (self,character):
         self.character = character
-        self.y = character.y
         self.frame = 0       # 점프 애니메이션 프레임 초기화
         self.frame_count = 3 # 점프 애니메이션 프레임 수
         self.velocity_y = 0  # 수직 속도 초기화 (y축 속도)
@@ -84,22 +83,22 @@ class Jump:
         self.start_y = self.character.y    # 점프 시작 y 위치 저장
 
     def exit(self):
-        pass
+        self.character.y = self.start_y  # 착지 시 원위치로
 
     def do(self):
-        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time # 프레임을 시간처리
+        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time  # 프레임을 시간처리
 
         # 점프 물리 계산
         self.velocity_y -= self.GRAVITY * game_framework.frame_time # 중력 적용
         self.character.y += self.velocity_y * game_framework.frame_time # 위치 업데이트
 
-        if self.character.y <= self.start_y:
-            self.character.y = self.start_y
+        if self.frame >= self.frame_count:
+            # 이벤트를 발생시켜 상태 전환
             self.character.state_machine.handle_event(('TIME_OUT', None))
 
 
     def draw(self):
-        frame_index = int(self.frame)
+        frame_index = int(self.frame) % 3
         if frame_index == 0:
             self.character.image.clip_draw(32, 60, 32, 35, 200, self.character.y, 50, 50)
         elif frame_index == 1:
