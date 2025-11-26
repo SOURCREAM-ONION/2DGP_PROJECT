@@ -70,30 +70,43 @@ class Jump:
     JUMP_SPEED = 150            # 점프 속도
     GRAVITY = 400               # 중력 가속도
 
+
     def __init__ (self,character):
         self.character = character
         self.frame = 0       # 점프 애니메이션 프레임 초기화
         self.frame_count = 3 # 점프 애니메이션 프레임 수
         self.velocity_y = 0  # 수직 속도 초기화 (y축 속도)
         self.start_y = 0     # 점프 시작 y 위치
+        self.animation_finished = False
 
     def enter(self):
         self.frame = 0
         self.velocity_y = self.JUMP_SPEED  # 점프 시작 시 속도 설정
         self.start_y = self.character.y    # 점프 시작 y 위치 저장
+        self.animation_finished = False
 
     def exit(self):
         self.character.y = self.start_y  # 착지 시 원위치로
 
     def do(self):
-        self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time  # 프레임을 시간처리
+        # 애니메이션이 끝나지 않았으면 프레임 증가
+        if not self.animation_finished:
+            self.frame = self.frame + self.FRAMES_PER_ACTION * self.ACTION_PER_TIME * game_framework.frame_time
+            if self.frame >= self.frame_count:
+                self.animation_finished = True  # 애니메이션 종료
+                self.character.frame = 0  # Idle 애니메이션 프레임 초기화
+        else:
+            # Idle 애니메이션 재생
+            self.character.frame = (
+                                               self.character.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
 
         # 점프 물리 계산
         self.velocity_y -= self.GRAVITY * game_framework.frame_time # 중력 적용
         self.character.y += self.velocity_y * game_framework.frame_time # 위치 업데이트
 
-        if self.frame >= self.frame_count:
-            # 이벤트를 발생시켜 상태 전환
+        # 착지 처리
+        if self.character.y <= self.start_y:
+            self.character.y = self.start_y
             self.character.state_machine.handle_event(('TIME_OUT', None))
 
 
