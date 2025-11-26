@@ -67,6 +67,8 @@ class Defence:
 class Jump:
     FRAMES_PER_ACTION = 3 # 점프 애니메이션 프레임 수
     ACTION_PER_TIME = 1.0 / 0.2 # 점프 애니메이션 속도 (0.1초에 한 번 동작)
+    JUMP_SPEED = 300 # 점프 속도
+    GRAVITY = 600 # 중력 가속도
 
     def __init__ (self,character):
         self.character = character
