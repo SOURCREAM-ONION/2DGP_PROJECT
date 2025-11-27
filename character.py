@@ -89,7 +89,7 @@ class Defence:
 class Jump:
     FRAMES_PER_ACTION = 3       # 점프 애니메이션 프레임 수
     ACTION_PER_TIME = 1.0 / 0.2 # 점프 애니메이션 속도 (0.1초에 한 번 동작)
-    JUMP_SPEED = 300 # 점프 속도
+    JUMP_SPEED = 600 # 점프 속도
 
 
     def __init__ (self,character):
@@ -221,6 +221,10 @@ class Character:
         draw_rectangle(*self.get_bb())
 
     def handle_event(self, event): # 이벤트가 발생했을 때 처리하는 부분
+        if jump_key_press(('INPUT', event)):
+            if self.y > 30:
+                return  # 이미 점프 중이면 무시
+
         # 방어 입력 시 쿨다운 체크
         if mouse_right_click(('INPUT', event)):
             if self.can_defence():
