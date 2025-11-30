@@ -53,9 +53,11 @@ class Building:
         # 방어 성공 시 호출: 모든 층을 위로 튕겨 올림
         for floor in self.floors:
             if floor['alive']:
-                # [핵심] 위치를 바꾸는 게 아니라 '속도'를 위쪽으로 설정함
-                # 중력에 의해 자연스럽게 느려지다가 다시 떨어지게 됨
-                floor['y_offset'] += BOUNCE_SPEED_KMPH
+                # [핵심 수정]
+                # 건물이 이미 위로 올라가는 중(y_offset > 0)이라면
+                # 다시 쳐올리지 않고 무시합니다. (한 번만 튕기게 하기 위함)
+                if floor['y_offset'] <= 0:
+                    floor['y_offset'] += BOUNCE_SPEED_KMPH
 
     def draw(self):
         # 살아있는 층만 그리기
