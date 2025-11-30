@@ -86,6 +86,21 @@ def update():  # 월드에 객체가 추가되는 부분
                     if bb and collide_bb(bb, sword.get_bb()):
                         obj.push_up()
 
+    character_bb = character.get_bb()  # 캐릭터의 현재 충돌 박스
+
+    for obj in game_world.world[0]:
+        if isinstance(obj, Building):  # 빌딩 객체 찾기
+            for i in range(obj.num_floors):
+                floor_bb = obj.get_bb_floor(i)
+
+                # 건물의 층과 캐릭터가 충돌했다면
+                if floor_bb and collide_bb(character_bb, floor_bb):
+
+                    # 캐릭터가 점프 중(위로 올라가는 중)이라면
+                    if character.velocity_y > 0:
+                        character.velocity_y = 0  # 상승력을 없애 바로 떨어지게 함
+                        character.y -= 30  # (옵션) 건물에 끼이지 않게 살짝 아래로 밀어냄
+
 
 def draw():  # 월드가 만들어지는 부분
     clear_canvas()
