@@ -1,13 +1,16 @@
 from pico2d import *
 import random
-
 import game_framework
 
+# 상수 정의
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 DROP_SPEED_KMPH = 20.0  # Km / Hour
 DROP_SPEED_MPM = (DROP_SPEED_KMPH * 1000.0 / 60.0)
 DROP_SPEED_MPS = (DROP_SPEED_MPM / 60.0)
 DROP_SPEED_PPS = (DROP_SPEED_MPS * PIXEL_PER_METER)
+
+# 튕기는 듯한 느낌을 주는 속도 상수
+BOUNCE_SPEED_KMPH = 200 # 방어 시 건물이 살짝 튕기는 속도
 
 # Building의 부모클래스 정의
 class Building:
@@ -49,7 +52,7 @@ class Building:
         PUSH_SPEED_PPS = DROP_SPEED_PPS * 5.0
         for floor in self.floors:
             if floor['alive']:
-                floor['y_offset'] += PUSH_SPEED_PPS * game_framework.frame_time  # 각 층이 개별적으로 올라옴
+                floor['y_offset'] += BOUNCE_SPEED_KMPH  # 각 층이 개별적으로 올라옴
 
     def draw(self):
         # 살아있는 층만 그리기
