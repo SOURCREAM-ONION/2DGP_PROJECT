@@ -4,17 +4,20 @@ import play_mode
 import title_mode
 
 image = None
-font = None
+font_gameover = None
+font_esc = None
 
 def init():
-    global image, font
+    global image, font_gameover, font_esc
     image = load_image('EndBackground.png')
-    font = load_font('ENCR10B.ttf', 60)
+    font_gameover = load_font('ENCR10B.ttf', 60)
+    font_esc = load_font('ENCR10B.ttf', 25)
 
 def finish():
-    global image, font
+    global image, font_gameover, font_esc
     del image
-    del font
+    del font_gameover
+    del font_esc
 
 def update():
     pass
@@ -28,5 +31,6 @@ def handle_events():
 def draw():
     clear_canvas()
     image.draw_to_origin(0,0, 400, 600)
-    font.draw(45, 500, 'Game Over', (255, 0, 0))
+    font_gameover.draw(45, 500, 'Game Over', (255, 0, 0))
+    font_esc.draw(65, 150, 'Press ESC to Title', (255, 255, 255))
     update_canvas()
