@@ -6,7 +6,8 @@ import title_mode
 image = None
 
 def init():
-    pass
+    global image
+    image = load_image('EndBackground.png')
 
 def finish():
     pass
