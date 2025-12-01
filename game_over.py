@@ -23,4 +23,6 @@ def handle_events():
             game_framework.change_mode(title_mode)
 
 def draw():
-    pass
+    clear_canvas()
+    image.draw_to_origin(0,0, 400, 600)
+    update_canvas()
