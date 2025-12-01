@@ -8,7 +8,7 @@ font = None
 def init():
     global image, font
     image = load_image('title.png')
-    font = load_font(None, 30)
+    font = load_font('ENCR10B.ttf', 25)
 
 def finish():
     global image, font
@@ -31,5 +31,5 @@ def handle_events():
 def draw():
     clear_canvas()
     image.draw_to_origin(0,0, 400, 600)
-    font.draw(200, 300, "Press SPACE to Start", (255, 255, 255))
+    font.draw(50, 80, 'Press SPACE to Start', (0, 37, 135))
     update_canvas()
