@@ -78,7 +78,7 @@ class Defence_Sword:
         self.sword = sword
         self.frame = 0 # 검 방어 애니메이션 프레임 초기화
         self.frame_count = 1 # 검 방어 애니메이션 프레임 수
-        self.TIME_PER_ACTION = 0.4 # 검 방어 애니메이션 속도
+        self.TIME_PER_ACTION = 5 # 검 방어 애니메이션 속도
         self.ACTION_PER_TIME = 2.7 # 검 방어 애니메이션 동작 시간
         self.FRAMES_PER_ACTION = 1 # 검 방어 애니메이션 프레임 수
 
