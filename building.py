@@ -56,7 +56,6 @@ class Building:
                 # [핵심 수정]
                 # 건물이 이미 위로 올라가는 중(y_offset > 0)이라면
                 # 다시 쳐올리지 않고 무시합니다. (한 번만 튕기게 하기 위함)
-                if floor['y_offset'] <= 0:
                     floor['y_offset'] += BOUNCE_SPEED_KMPH
 
     def draw(self):
