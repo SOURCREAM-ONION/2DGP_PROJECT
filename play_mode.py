@@ -63,6 +63,17 @@ def update():  # 월드에 객체가 추가되는 부분
     global spawn_timer
     game_world.update()
 
+    # 건물이 일정 위치에 도달하면 게임오버
+    for obj in game_world.world[0]:
+        if isinstance(obj, Building):
+            for i in range(obj.num_floors):
+                if obj.floors[i]['alive']:
+                    floor_y = obj.y + obj.floors[i]['y_offset']
+                    if floor_y <= 20:
+                        import game_over
+                        game_framework.change_mode(game_over)
+                        return
+
     # 빌딩 스폰 타이머 업데이트
     spawn_timer += game_framework.frame_time
     if spawn_timer >= 15.0:
