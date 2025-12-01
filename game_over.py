@@ -4,14 +4,17 @@ import play_mode
 import title_mode
 
 image = None
+font = None
 
 def init():
-    global image
+    global image, font
     image = load_image('EndBackground.png')
+    font = load_font('ENCR10B.ttf', 60)
 
 def finish():
-    global image
+    global image, font
     del image
+    del font
 
 def update():
     pass
@@ -25,4 +28,5 @@ def handle_events():
 def draw():
     clear_canvas()
     image.draw_to_origin(0,0, 400, 600)
+    font.draw(45, 500, 'Game Over', (255, 0, 0))
     update_canvas()
