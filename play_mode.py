@@ -88,7 +88,7 @@ def update():  # 월드에 객체가 추가되는 부분
                 for i in range(obj.num_floors):
                     bb = obj.get_bb_floor(i)
                     if bb and collide_bb(bb, sword.get_bb()):
-                        obj.destroy_floor(i)
+                        obj.take_damage(i,1)
 
     # 검 방어 중일 때 모든 빌딩과 충돌 체크
     if sword.is_defending():

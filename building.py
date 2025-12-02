@@ -44,7 +44,13 @@ class Building:
                     floor['y_offset'] -= DROP_SPEED_PPS * game_framework.frame_time  # 각 층이 개별적으로 내려옴
 
     def take_damage(self, floor_num, damage):
-        pass
+        if 0 <= floor_num < len(self.floors):
+            floor = self.floors[floor_num]
+            if floor['alive']:
+                floor['hp'] -= damage
+                print(f"{floor_num + 1}층이 {damage} 데미지를 입음! 남은 체력: {floor['hp']}")
+                if floor['hp'] <= 0:
+                    self.destroy_floor(floor_num)
 
     # 층 파괴 함수
     def destroy_floor(self, floor_num):
