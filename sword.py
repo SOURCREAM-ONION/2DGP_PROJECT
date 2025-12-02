@@ -42,6 +42,7 @@ class Wield_Sword:
 
     def enter(self):
         self.frame = 0
+        self.sword.hit_list.clear() # 검이 공격한 대상 리스트 초기화
 
     def exit(self):
         pass
@@ -109,6 +110,8 @@ class Sword:
         self.image = load_image('basic_sword.png') # 검의 이미지 로드
         self.last_defence_time = 0.0 # 마지막 방어 시간 초기화
         self.defence_cooltime = 2.0
+
+        self.hit_list = []  # 검이 공격한 대상 리스트 초기화
 
         self.IDLE_SWORD = Idle_Sword(self)
         self.WIELD_SWORD = Wield_Sword(self)
