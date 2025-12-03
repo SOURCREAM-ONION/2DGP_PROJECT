@@ -21,7 +21,7 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION # 초당 동작 수
 FRAMES_PER_ACTION = 4 # 동작당 프레임 수
 
 # 중력 상수 (Jump 클래스 외에도 사용할 수 있게)
-GRAVITY = 100
+GRAVITY = 70
 
 # 캐릭터 대기 상태
 class Idle:
@@ -43,13 +43,13 @@ class Idle:
         self.character.y += self.character.velocity_y * game_framework.frame_time
 
         # 바닥 충돌 처리
-        if self.character.y <= 30:
-            self.character.y = 30 # 캐릭터가 30 위치면
+        if self.character.y <= 100:
+            self.character.y = 100 # 캐릭터가 30 위치면
             self.character.velocity_y = 0 # 속도 0으로 고정
 
     def draw(self):
         frame_index = int(self.character.frame)
-        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, 200, self.character.y, 50, 50)
+        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, self.character.x, self.character.y, 100, 100)
 
 
 # 캐릭터 방어 상태
@@ -77,23 +77,23 @@ class Defence:
         self.character.y += self.character.velocity_y * game_framework.frame_time
 
         # 바닥 충돌 처리
-        if self.character.y <= 30:
-            self.character.y = 30 # 캐릭터가 30 위치면
+        if self.character.y <= 100:
+            self.character.y = 100 # 캐릭터가 30 위치면
             self.character.velocity_y = 0 # 속도 0으로 고정
 
     def draw(self):
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(128, 93, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(128, 93, 32, 35, self.character.x, self.character.y, 100, 100)
         elif frame_index == 1:
-            self.character.image.clip_draw(0, 61, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(0, 61, 32, 35, self.character.x, self.character.y, 100, 100)
 
 
 # 캐릭터 점프 상태
 class Jump:
     FRAMES_PER_ACTION = 3       # 점프 애니메이션 프레임 수
     ACTION_PER_TIME = 1.0 / 0.2 # 점프 애니메이션 속도 (0.1초에 한 번 동작)
-    JUMP_SPEED = 300 # 점프 속도
+    JUMP_SPEED = 600 # 점프 속도
 
 
     def __init__ (self,character):
@@ -136,11 +136,11 @@ class Jump:
     def draw(self):
         frame_index = int(self.frame) % 3
         if frame_index == 0:
-            self.character.image.clip_draw(32, 60, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(32, 60, 32, 35, self.character.x, self.character.y, 100, 100)
         elif frame_index == 1:
-            self.character.image.clip_draw(64, 61, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(64, 61, 32, 35, self.character.x, self.character.y, 100, 100)
         elif frame_index == 2:
-            self.character.image.clip_draw(96, 61, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(96, 61, 32, 35, self.character.x, self.character.y, 100, 100)
 
 
 # 캐릭터 공격 상태
@@ -170,24 +170,24 @@ class Attack:
         self.character.y += self.character.velocity_y * game_framework.frame_time
 
         # 바닥 충돌 처리
-        if self.character.y <= 30:
-            self.character.y = 30 # 캐릭터가 30 위치면
+        if self.character.y <= 100:
+            self.character.y = 100 # 캐릭터가 30 위치면
             self.character.velocity_y = 0 # 속도 0으로 고정
 
     def draw(self):
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(0, 29, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(0, 29, 32, 35, self.character.x, self.character.y, 100, 100)
         elif frame_index == 1:
-            self.character.image.clip_draw(32, 29, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(32, 29, 32, 35, self.character.x, self.character.y, 100, 100)
         elif frame_index == 2:
-            self.character.image.clip_draw(64, 29, 32, 35, 200, self.character.y, 50, 50)
+            self.character.image.clip_draw(64, 29, 32, 35, self.character.x, self.character.y, 100, 100)
 
 
 # 캐릭터 클래스
 class Character:
     def __init__(self): # 캐릭터가 처음 생성될 때 나오는 부분
-        self.x, self.y = 200, 30 # 캐릭터의 초기 위치
+        self.x, self.y = 240, 100 # 캐릭터의 초기 위치
         self.frame = 0 # 캐릭터의 프레임 초기화
         self.velocity_y = 0 # 캐릭터의 수직 속도 초기화
         self.image = load_image('Char1_1.png') # 캐릭터의 이미지 로드
@@ -221,7 +221,7 @@ class Character:
 
     def get_bb(self):
         #캐릭터 충돌처리
-        return self.x - 15, self.y - 0, self.x + 15, self.y + 20
+        return self.x - 30, self.y - 0, self.x + 30, self.y + 40
 
     def draw(self):  # 캐릭터가 그려지는 부분
         self.state_machine.draw() # 상태 머신한테 draw를 맡김
@@ -229,7 +229,7 @@ class Character:
 
     def handle_event(self, event): # 이벤트가 발생했을 때 처리하는 부분
         if jump_key_press(('INPUT', event)):
-            if self.y > 30:
+            if self.y > 100:
                 return  # 이미 점프 중이면 무시
 
         # 방어 입력 시 쿨다운 체크

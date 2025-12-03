@@ -4,7 +4,7 @@ import game_framework
 
 # 상수 정의
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-DROP_SPEED_KMPH = 20.0  # Km / Hour
+DROP_SPEED_KMPH = 15.0  # Km / Hour
 DROP_SPEED_MPM = (DROP_SPEED_KMPH * 1000.0 / 60.0)
 DROP_SPEED_MPS = (DROP_SPEED_MPM / 60.0)
 DROP_SPEED_PPS = (DROP_SPEED_MPS * PIXEL_PER_METER)
@@ -15,17 +15,17 @@ BOUNCE_SPEED_KMPH = 400 # 방어 시 건물이 살짝 튕기는 속도
 # Building의 부모클래스 정의
 class Building:
     def __init__(self, image_file='Building1.png', num_floors=9): # 기본 건물 이미지 파일과 층 수
-        self.x, self.y = 200, 1000  # 건물의 초기 위치
+        self.x, self.y = 240, 1000  # 건물의 초기 위치
         self.building = load_image(image_file)  # 건물 이미지 로드
-        self.framex = 450  # 건물 프레임 크기 x
-        self.framey = 100  # 건물 프레임 크기 y
+        self.framex = 700  # 건물 프레임 크기 x
+        self.framey = 150  # 건물 프레임 크기 y
 
         # 층 정보 초기화
         self.floors = []
         for i in range(num_floors): # 각 층에 대한 정보 저장 (부모클래스 이기 때문)
             self.floors.append({
                 'clip_y': i * 307, # 각 층의 클립 y 위치
-                'y_offset': i * 101, # 각 층의 y 오프셋
+                'y_offset': i * 150, # 각 층의 y 오프셋
                 'alive': True, # 층이 살아있는지 여부
                 'hp' : 3 # 각 층의 체력
             })
@@ -83,7 +83,7 @@ class Building:
         if not self.floors[floor_num]['alive']: # 층이 파괴되었으면
             return None # 충돌 박스 없음
         floor_y = self.y + self.floors[floor_num]['y_offset'] # 층의 현재 y 위치 계산
-        return self.x - 225, floor_y - 50, self.x + 225, floor_y + 50 # 충돌 박스 좌표 반환
+        return self.x - 225, floor_y - 75, self.x + 225, floor_y + 75 # 충돌 박스 좌표 반환
 
 
 # 빌딩의 자식 클래스 (빌딩 자식 클래스의 숫자는 파일의 숫자와 같게 함)
