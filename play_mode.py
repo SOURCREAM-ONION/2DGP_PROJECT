@@ -89,7 +89,7 @@ def update():  # 월드에 객체가 추가되는 부분
                     bb = obj.get_bb_floor(i)
                     if bb and collide_bb(bb, sword.get_bb()):
                         if (obj, i) not in sword.hit_list:
-                            obj.take_damage(i,2)
+                            obj.take_damage(i,1)
                             sword.hit_list.append((obj, i))
 
     # 검 방어 중일 때 모든 빌딩과 충돌 체크
@@ -100,7 +100,7 @@ def update():  # 월드에 객체가 추가되는 부분
                     bb = obj.get_bb_floor(i)
                     if bb and collide_bb(bb, sword.get_aa()):
                         obj.push_up()
-                        character.velocity_y = 0 
+                        character.velocity_y = -800
 
     character_bb = character.get_bb()  # 캐릭터의 현재 충돌 박스
 

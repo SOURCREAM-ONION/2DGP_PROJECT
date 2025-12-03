@@ -10,7 +10,7 @@ DROP_SPEED_MPS = (DROP_SPEED_MPM / 60.0)
 DROP_SPEED_PPS = (DROP_SPEED_MPS * PIXEL_PER_METER)
 
 # 튕기는 듯한 느낌을 주는 속도 상수
-BOUNCE_SPEED_KMPH = 200 # 방어 시 건물이 살짝 튕기는 속도
+BOUNCE_SPEED_KMPH = 400 # 방어 시 건물이 살짝 튕기는 속도
 
 # Building의 부모클래스 정의
 class Building:
@@ -27,7 +27,7 @@ class Building:
                 'clip_y': i * 307, # 각 층의 클립 y 위치
                 'y_offset': i * 101, # 각 층의 y 오프셋
                 'alive': True, # 층이 살아있는지 여부
-                'hp' : 10 # 각 층의 체력
+                'hp' : 3 # 각 층의 체력
             })
 
         self.num_floors = num_floors # 층 수 저장
