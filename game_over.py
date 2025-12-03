@@ -30,7 +30,7 @@ def handle_events():
 
 def draw():
     clear_canvas()
-    image.draw_to_origin(0,0, 400, 600)
+    image.draw_to_origin(0,0, 480, 720)
     font_gameover.draw(45, 500, 'Game Over', (255, 0, 0))
     font_esc.draw(65, 150, 'Press ESC to Title', (255, 255, 255))
     update_canvas()

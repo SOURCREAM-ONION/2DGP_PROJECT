@@ -70,7 +70,7 @@ def update():  # 월드에 객체가 추가되는 부분
                 if obj.floors[i]['alive']: # 층이 살아있다면
                     floor_y = obj.y + obj.floors[i]['y_offset'] # 층의 현재 y 위치 계산
                      # 층의 바닥이 y=20 이하로 내려갔는지 확인
-                    if floor_y <= 20:
+                    if floor_y <= 150:
                         import game_over
                         game_framework.change_mode(game_over)
                         return
@@ -135,7 +135,7 @@ def update():  # 월드에 객체가 추가되는 부분
             for i in range(obj.num_floors): # 각 층을 검사
                 floor_bb = obj.get_bb_floor(i) # 층의 충돌 박스 가져오기
                 if floor_bb and collide_bb(character_bb, floor_bb):# 건물의 층과 캐릭터가 충돌했다면
-                    character.y = floor_bb[1] - 20 # 캐릭터를 층 위에 위치시킴
+                    character.y = floor_bb[1] - 50 # 캐릭터를 층 위에 위치시킴
                     if character.velocity_y > 0: # 캐릭터가 점프 중(위로 올라가는 중)이라면
                         character.velocity_y = 0  # 상승력을 없애 바로 떨어지게 함
 
