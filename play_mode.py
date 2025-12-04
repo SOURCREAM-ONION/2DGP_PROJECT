@@ -5,6 +5,7 @@ from sword import Sword
 import game_framework
 import title_mode
 from building import create_random_building,Building
+from background import Background
 
 
 # 충돌 체크 함수 추가
@@ -44,17 +45,20 @@ def init():  # 월드가 새로 나올때 그려지는 부분
     global spawn_timer
 
     running = True
-    world = []
+    world = [[],[],[]]
     game_world.clear()
+
+    background = Background()
+    game_world.add_object(background, 0) # 배경을 월드의 -1번 레이어에 추가
 
     character = Character() # 캐릭터 객체 생성
     game_world.add_object(character, 1) # 캐릭터를 월드의 1번 레이어에 추가
 
     sword = Sword(character) # 검 객체 생성
-    game_world.add_object(sword, 0) # 검을 월드의 0번 레이어에 추가
+    game_world.add_object(sword, 1) # 검을 월드의 0번 레이어에 추가
 
     building = create_random_building() # 빌딩 객체 생성
-    game_world.add_object(building, 0) # 빌딩을 월드의 0번 레이어에 추가
+    game_world.add_object(building, 1) # 빌딩을 월드의 0번 레이어에 추가
 
     spawn_timer = 0.0
 
@@ -64,7 +68,7 @@ def update():  # 월드에 객체가 추가되는 부분
     game_world.update()
 
     # 건물이 일정 위치에 도달하면 게임오버
-    for obj in game_world.world[0]: # for문으로 월드의 0번 레이어 객체들 검사
+    for obj in game_world.world[1]: # for문으로 월드의 0번 레이어 객체들 검사
         if isinstance(obj, Building): # 만약 Building 객체라면
             for i in range(obj.num_floors): # 각 층을 검사
                 if obj.floors[i]['alive']: # 층이 살아있다면
@@ -83,7 +87,7 @@ def update():  # 월드에 객체가 추가되는 부분
     #     game_world.add_object(new_building, 0)
 
     # 완전히 파괴한 빌딩 제거
-    for obj  in list(game_world.world[0]): # for문으로 월드의 0번 레이어 객체들 검사
+    for obj  in list(game_world.world[1]): # for문으로 월드의 0번 레이어 객체들 검사
         if isinstance(obj, Building): # 만약 Building 객체라면
             all_destroyed = True # 모든 층이 파괴되었는지 확인하는 변수
             for floor in obj.floors: # 각 층을 검사
@@ -96,19 +100,19 @@ def update():  # 월드에 객체가 추가되는 부분
 
     # 빌딩이 하나도 없으면 새 빌딩 생성
     building_exists = False
-    for obj in game_world.world[0]: # for문으로 월드의 0번 레이어 객체들 검사
+    for obj in game_world.world[1]: # for문으로 월드의 0번 레이어 객체들 검사
         if isinstance(obj, Building): # 만약 Building 객체라면
             building_exists = True # 빌딩이 존재함
             break
 
     if not building_exists: # 빌딩이 없으면
         new_building = create_random_building() # 새 빌딩 생성
-        game_world.add_object(new_building, 0) # 월드에 추가
+        game_world.add_object(new_building, 1) # 월드에 추가
         print("새 빌딩 생성됨") # 디버그 메시지
 
     # 검 공격 중일 때 모든 빌딩과 충돌 체크
     if sword.is_attacking(): # 검을 휘두르는 중이라면
-        for obj in game_world.world[0]: # for문으로 월드의 0번 레이어 객체들 검사
+        for obj in game_world.world[1]: # for문으로 월드의 1번 레이어 객체들 검사
             if isinstance(obj, Building): # 만약 Building 객체라면
                 for i in range(obj.num_floors): # 각 층을 검사
                     bb = obj.get_bb_floor(i) # 층의 충돌 박스 가져오기
@@ -119,7 +123,7 @@ def update():  # 월드에 객체가 추가되는 부분
 
     # 검 방어 중일 때 모든 빌딩과 충돌 체크
     if sword.is_defending(): # 검으로 방어하는 중이라면
-        for obj in game_world.world[0]: # for문으로 월드의 0번 레이어 객체들 검사
+        for obj in game_world.world[1]: # for문으로 월드의 1번 레이어 객체들 검사
             if isinstance(obj, Building): # 만약 Building 객체라면
                 for i in range(obj.num_floors): # 각 층을 검사
                     bb = obj.get_bb_floor(i) # 층의 충돌 박스 가져오기
@@ -130,7 +134,7 @@ def update():  # 월드에 객체가 추가되는 부분
     character_bb = character.get_bb()  # 캐릭터의 현재 충돌 박스
 
     # 빌딩과 캐릭터의 충돌 체크
-    for obj in game_world.world[0]: # for문으로 월드의 0번 레이어 객체들 검사
+    for obj in game_world.world[1]: # for문으로 월드의 1번 레이어 객체들 검사
         if isinstance(obj, Building):  # 빌딩 객체 찾기
             for i in range(obj.num_floors): # 각 층을 검사
                 floor_bb = obj.get_bb_floor(i) # 층의 충돌 박스 가져오기
