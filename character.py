@@ -1,5 +1,5 @@
 from pico2d import *
-from sdl2 import SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_KEYDOWN, SDLK_SPACE
+from sdl2 import SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_KEYDOWN, SDLK_SPACE, SDLK_a, SDLK_d
 from state_machine import StateMachine
 
 import game_framework
@@ -228,6 +228,18 @@ class Character:
         draw_rectangle(*self.get_bb())
 
     def handle_event(self, event): # 이벤트가 발생했을 때 처리하는 부분
+        # 캐릭터 좌우 이동
+        if event.type == SDL_KEYDOWN:
+            if event.key == SDLK_a:
+                self.x -= 50
+            elif event.key == SDLK_d:
+                self.x += 50
+
+        if self.x < 50:
+            self.x = 50
+        elif self.x > 430:
+            self.x = 430
+
         if jump_key_press(('INPUT', event)):
             if self.y > 100:
                 return  # 이미 점프 중이면 무시
