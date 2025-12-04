@@ -40,9 +40,13 @@ def handle_events():
             character.handle_event(event)
             sword.handle_event(event)
 
+score = 0
+score_timer = 0.0
+font = None
 
 def init():  # 월드가 새로 나올때 그려지는 부분
     global running, character, world, sword, building, spawn_timer
+    global score, score_timer, font # 점수와 타이머, 폰트 전역 변수 선언
 
     running = True
     world = [[],[],[]]
@@ -62,10 +66,21 @@ def init():  # 월드가 새로 나올때 그려지는 부분
 
     spawn_timer = 0.0
 
+    # 점수 및 폰트 초기화
+    score = 0
+    score_timer = 0.0
+    font = load_font('ENCR10B.ttf', 30)
+
 
 def update():  # 월드에 객체가 추가되는 부분
-    global spawn_timer
+    global spawn_timer, score, score_timer
     game_world.update()
+
+    # 점수 업데이트
+    score_timer += game_framework.frame_time
+    if score_timer >= 1.0:  # 1초마다 점수 증가
+        score += 1  # 점수 10점 증가
+        score_timer -= 0.0  # 타이머 초기화
 
     # 건물이 일정 위치에 도달하면 게임오버
     for obj in game_world.world[1]: # for문으로 월드의 0번 레이어 객체들 검사
@@ -121,6 +136,9 @@ def update():  # 월드에 객체가 추가되는 부분
                             obj.take_damage(i,1) # 해당 층에 데미지 1 입히기
                             sword.hit_list.append((obj, i)) # 히트리스트에 추가
 
+                            if not obj.floors[i]['alive']: # 만약 해당 층이 파괴되었다면
+                                score += 10  # 점수 100점 추가
+
     # 검 방어 중일 때 모든 빌딩과 충돌 체크
     if sword.is_defending(): # 검으로 방어하는 중이라면
         for obj in game_world.world[1]: # for문으로 월드의 1번 레이어 객체들 검사
@@ -147,8 +165,14 @@ def update():  # 월드에 객체가 추가되는 부분
 def draw():  # 월드가 만들어지는 부분
     clear_canvas()
     game_world.render()
+
+    # 점수 표시
+    if font:
+        font.draw(20, 680, f'{score}',(255,255,255))
     update_canvas()
 
 
 def finish():  # 월드가 사라질때 지워지는 부분
-    pass
+    global font
+    if font:
+        del font
