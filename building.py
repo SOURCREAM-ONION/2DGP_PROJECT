@@ -107,6 +107,12 @@ class Building4(Building):
         super().__init__('Building4.png',num_floors=11)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
         print("4 자식 클래스 초기화 완료") # 디버그 메시지
 
+class Building32(Building):
+    def __init__(self):
+        super().__init__('Building32.png',num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("32 자식 클래스 초기화 완료") # 디버그 메시지
+
 def create_random_building():
-    buildings = [Building,Building41,Building52,Building33,Building4]
+    buildings = [Building,Building41,Building52,Building33,Building4,Building32]
+    #buildings = [Building32] # 한개씩 테스트 할 때
     return random.choice(buildings)()
