@@ -8,8 +8,8 @@ font = None
 
 def init():
     global image, font
-    image = load_image('title.png')
-    font = load_font('ENCR10B.ttf', 25)
+    image = load_image('background/title.png')
+    font = load_font('ui/ENCR10B.ttf', 25)
 
 def finish():
     global image, font

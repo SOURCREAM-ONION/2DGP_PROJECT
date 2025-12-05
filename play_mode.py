@@ -74,7 +74,7 @@ def init():  # 월드가 새로 나올때 그려지는 부분
     # 점수 및 폰트 초기화
     score = 0
     score_timer = 0.0
-    font = load_font('ENCR10B.ttf', 30)
+    font = load_font('ui/ENCR10B.ttf', 30)
 
 
 def update():  # 월드에 객체가 추가되는 부분

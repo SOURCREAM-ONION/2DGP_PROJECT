@@ -18,7 +18,7 @@ def init():
 
     current_preview = map_list[selection_index]()
 
-    direction_image = load_image("Direction_21.png")
+    direction_image = load_image("ui/Direction_21.png")
 
 def finish():
     global current_preview

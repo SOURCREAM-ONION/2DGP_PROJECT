@@ -10,10 +10,10 @@ font_score = None
 
 def init():
     global image, font_gameover, font_esc, font_score
-    image = load_image('EndBackground.png')
-    font_gameover = load_font('ENCR10B.ttf', 60)
-    font_esc = load_font('ENCR10B.ttf', 25)
-    font_score = load_font('ENCR10B.ttf', 30)
+    image = load_image('background/EndBackground.png')
+    font_gameover = load_font('ui/ENCR10B.ttf', 60)
+    font_esc = load_font('ui/ENCR10B.ttf', 25)
+    font_score = load_font('ui/ENCR10B.ttf', 30)
 
 def finish():
     global image, font_gameover, font_esc, font_score

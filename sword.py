@@ -109,7 +109,7 @@ class Sword:
     def __init__(self, character):
         self.character = character
         self.x, self.y = character.x + 22, character.y # 초기 위치 설정 # 검의 초기 위치
-        self.image = load_image('basic_sword.png') # 검의 이미지 로드
+        self.image = load_image('sword/basic_sword.png') # 검의 이미지 로드
         self.last_defence_time = 0.0 # 마지막 방어 시간 초기화
         self.defence_cooltime = 2.0
 

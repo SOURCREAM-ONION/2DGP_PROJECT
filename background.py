@@ -14,17 +14,17 @@ class Background:
 
 class Background2(Background):
     def __init__(self):
-        super().__init__ ("Background_04_03.png") # 야자수 배경
+        super().__init__ ("background/Background_04_03.png") # 야자수 배경
 
 class Background3(Background):
     def __init__(self):
-        super().__init__ ("Background_06_02.png") # 흐릿한 도시 배경
+        super().__init__ ("background/Background_06_02.png") # 흐릿한 도시 배경
 
 class Background4(Background):
     def __init__(self):
-        super().__init__ ("Background_10_02.png") # 밝은 도시 배경
+        super().__init__ ("background/Background_10_02.png") # 밝은 도시 배경
 
 class Background5(Background):
     def __init__(self):
-        super().__init__ ("Background_02_04.png") # 밤하늘 배경
+        super().__init__ ("background/Background_02_04.png") # 밤하늘 배경
 

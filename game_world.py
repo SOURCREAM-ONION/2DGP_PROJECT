@@ -21,7 +21,7 @@ def remove_object(o):
         if o in layer:
             layer.remove(o)
             return
-    print("삭제할 월드가 없습니다")
+    # print("삭제할 월드가 없습니다")
 
 def clear():
     for layer in world:

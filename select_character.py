@@ -24,7 +24,7 @@ def init():
 
     current_character = character_list[selection_index]()
 
-    direction_image = load_image("Direction_21.png")
+    direction_image = load_image("ui/Direction_21.png")
 
 def finish():
     global current_character
@@ -33,7 +33,9 @@ def finish():
 
     del current_character
     del direction_image
-    del background
+    if background:
+        del background
+        background = None
 
 def update():
     pass
