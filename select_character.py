@@ -7,21 +7,28 @@ import select_sword
 
 direction_image = None
 background = None
+current_character = None
 
-def set_background(bg_class):
-    global background
-    if background:
-        del background
-    background = bg_class()
+current_map_class = None
+
+def set_background(cls):
+    global current_map_class
+    if current_map_class:
+        del current_map_class
+    current_map_class = cls
 
 def init():
     global character_list
     global selection_index
     global current_character
     global direction_image
+    global background
 
     character_list = [Character, Char12, Char13, Char21, Char22, Char23, Char31, Char32, Char33, Char41, Char42, Char43, Char51, Char52, Char53]
     selection_index = 0
+
+    if current_map_class:
+        background = current_map_class()
 
     current_character = character_list[selection_index]()
 
@@ -48,6 +55,7 @@ def draw():
         background.draw()
 
     current_character.draw()
+
     if direction_image:
         direction_image.draw(430, 360, 100, 100)
         direction_image.composite_draw(0, 'h', 50, 360, 100, 100)
@@ -73,8 +81,8 @@ def handle_events():
                 del current_character
                 current_character = character_list[selection_index]()
             elif event.key == SDLK_SPACE:
-                selected_character = character_list[selection_index]
-                select_sword.set_character(selected_character)
-                select_sword.set_background(background.__class__ if background else None)
-                play_mode.set_character_class(selected_character)
+                selected_character_class = character_list[selection_index]
+                play_mode.set_character_class(selected_character_class)
+                select_sword.set_background_class(current_map_class)
+                select_sword.set_character_class(selected_character_class)
                 game_framework.change_mode(select_sword)
