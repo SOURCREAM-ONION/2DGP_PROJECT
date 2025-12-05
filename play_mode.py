@@ -1,14 +1,16 @@
 from pico2d import *
 import game_world
-from character import Character, Char21 # 캐릭터 클래스 임포트
+from character import Character
 from sword import Sword
 import game_framework
 import title_mode
 from building import create_random_building,Building
 from background import Background2, Background3, Background4, Background5 # 배경 클래스 임포트
+from sword import Sword
 
 current_map_class = Background2  # 현재 맵 클래스를 Background2로 설정
 current_character_class = Character # 현재 캐릭터 클래스를 Character로 설정
+current_sword_class = Sword # 현재 검 클래스를 Sword로 설정
 
 def set_background_class(cls):
     global current_map_class
@@ -17,6 +19,10 @@ def set_background_class(cls):
 def set_character_class(scc):
     global current_character_class
     current_character_class = scc
+
+def set_sword_class(scs):
+    global current_sword_class
+    current_sword_class = scs
 
 # 충돌 체크 함수 추가
 def collide_bb(bb_a, bb_b):
@@ -63,7 +69,7 @@ def init():  # 월드가 새로 나올때 그려지는 부분
     character = current_character_class() # 캐릭터 객체 생성
     game_world.add_object(character, 1) # 캐릭터를 월드의 1번 레이어에 추가
 
-    sword = Sword(character) # 검 객체 생성
+    sword = current_sword_class(character) # 검 객체 생성
     game_world.add_object(sword, 1) # 검을 월드의 0번 레이어에 추가
 
     building = create_random_building() # 빌딩 객체 생성

@@ -74,5 +74,7 @@ def handle_events():
                 current_character = character_list[selection_index]()
             elif event.key == SDLK_SPACE:
                 selected_character = character_list[selection_index]
+                select_sword.set_character(selected_character)
+                select_sword.set_background(background.__class__ if background else None)
                 play_mode.set_character_class(selected_character)
                 game_framework.change_mode(select_sword)
