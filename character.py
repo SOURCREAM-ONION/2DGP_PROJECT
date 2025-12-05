@@ -258,7 +258,7 @@ class Char12(Character):
         super().__init__()
         self.image = load_image('character/char1_2.png')
 
-class char13(Character):
+class Char13(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
         super().__init__()
         self.image = load_image('character/char1_3.png')
