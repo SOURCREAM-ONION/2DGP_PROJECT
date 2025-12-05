@@ -1,6 +1,6 @@
 from pico2d import *
 import game_world
-from character import Character, Char2 # 캐릭터 클래스 임포트
+from character import Character, Char21 # 캐릭터 클래스 임포트
 from sword import Sword
 import game_framework
 import title_mode

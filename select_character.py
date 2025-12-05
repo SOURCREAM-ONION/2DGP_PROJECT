@@ -2,7 +2,7 @@ from pico2d import *
 import game_framework
 import play_mode
 import select_map
-from character import Character, Char2
+from character import Character, Char21, Char22, Char23, Char31, Char32, Char33, Char41, Char42, Char43, Char51, Char52, Char53
 
 direction_image = None
 background = None
@@ -19,7 +19,7 @@ def init():
     global current_character
     global direction_image
 
-    character_list = [Character, Char2]
+    character_list = [Character, Char21, Char22, Char23, Char31, Char32, Char33, Char41, Char42, Char43, Char51, Char52, Char53]
     selection_index = 0
 
     current_character = character_list[selection_index]()
