@@ -3,6 +3,7 @@ import game_framework
 import play_mode
 import select_map
 from character import Character,Char12, Char13, Char21, Char22, Char23, Char31, Char32, Char33, Char41, Char42, Char43, Char51, Char52, Char53
+import select_sword
 
 direction_image = None
 background = None
@@ -19,7 +20,7 @@ def init():
     global current_character
     global direction_image
 
-    character_list = [Character, Char12, Char13, Char22, Char23, Char31, Char32, Char33, Char41, Char42, Char43, Char51, Char52, Char53]
+    character_list = [Character, Char12, Char13, Char21, Char22, Char23, Char31, Char32, Char33, Char41, Char42, Char43, Char51, Char52, Char53]
     selection_index = 0
 
     current_character = character_list[selection_index]()
@@ -74,4 +75,4 @@ def handle_events():
             elif event.key == SDLK_SPACE:
                 selected_character = character_list[selection_index]
                 play_mode.set_character_class(selected_character)
-                game_framework.change_mode(play_mode)
+                game_framework.change_mode(select_sword)
