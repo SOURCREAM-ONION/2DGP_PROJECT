@@ -1,11 +1,17 @@
 from pico2d import *
 import game_framework
 import play_mode
-import title_mode
 import select_map
 from character import Character, Char2
 
 direction_image = None
+background = None
+
+def set_background(bg_class):
+    global background
+    if background:
+        del background
+    background = bg_class()
 
 def init():
     global character_list
@@ -23,15 +29,20 @@ def init():
 def finish():
     global current_character
     global direction_image
+    global background
 
     del current_character
     del direction_image
+    del background
 
 def update():
     pass
 
 def draw():
     clear_canvas()
+
+    if background:
+        background.draw()
 
     current_character.draw()
     if direction_image:
@@ -59,5 +70,6 @@ def handle_events():
                 del current_character
                 current_character = character_list[selection_index]()
             elif event.key == SDLK_SPACE:
-                play_mode.character_class = character_list[selection_index]
+                selected_character = character_list[selection_index]
+                play_mode.set_character_class(selected_character)
                 game_framework.change_mode(play_mode)

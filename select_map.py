@@ -52,13 +52,18 @@ def handle_events():
                 game_framework.change_mode(title_mode)
             elif event.key == SDLK_LEFT: # 왼쪽 화살표 키 입력
                 selection_index = (selection_index - 1) % len(map_list)
+                direction_image.composite_draw(0, 'h', 60, 360, 120, 120)
+                update_canvas()
                 del current_preview
                 current_preview = map_list[selection_index]()
             elif event.key == SDLK_RIGHT: # 오른쪽 화살표 키 입력
                 selection_index = (selection_index + 1) % len(map_list)
+                direction_image.draw(420, 360, 120, 120)
+                update_canvas()
                 del current_preview
                 current_preview = map_list[selection_index]()
             elif event.key == SDLK_SPACE:
                 selected_class = map_list[selection_index]
+                select_character.set_background(selected_class)
                 play_mode.set_background_class(selected_class)
                 game_framework.change_mode(select_character)
