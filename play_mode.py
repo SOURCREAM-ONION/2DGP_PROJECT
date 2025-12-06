@@ -7,6 +7,7 @@ from building import create_random_building,Building
 from background import Background # 배경 클래스 임포트
 from sword import Sword
 from coin import Coin
+import game_data
 
 current_map_class = Background  # 현재 맵 클래스를 Background로 설정
 current_character_class = Character # 현재 캐릭터 클래스를 Character로 설정
@@ -187,6 +188,7 @@ def update():  # 월드에 객체가 추가되는 부분
         if isinstance(obj, Coin):  # 코인 객체 찾기
             coin_bb = obj.get_bb() # 코인의 충돌 박스 가져오기
             if coin_bb and collide_bb(character_bb, coin_bb):# 코인과 캐릭터가 충돌했다면
+                game_data.total_coins += 1 # game_data파일의 total_coins 1 증가
                 game_world.remove_object(obj) # 코인 제거
 
 
@@ -197,6 +199,7 @@ def draw():  # 월드가 만들어지는 부분
     # 점수 표시
     if font:
         font.draw(20, 680, f'Score : {score}',(255,255,255))
+        font.draw(20, 640, f'Coins : {game_data.total_coins}',(255,255,0))
     update_canvas()
 
 
