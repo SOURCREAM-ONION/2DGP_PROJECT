@@ -102,7 +102,7 @@ class Defence:
 class Jump:
     FRAMES_PER_ACTION = 3       # 점프 애니메이션 프레임 수
     ACTION_PER_TIME = 1.0 / 0.2 # 점프 애니메이션 속도 (0.1초에 한 번 동작)
-    JUMP_SPEED = 1200 # 점프 속도
+    JUMP_SPEED = 1500 # 점프 속도
 
 
     def __init__ (self,character):
@@ -246,8 +246,8 @@ class Character:
 
         if self.x < 50:
             self.x = 50
-        elif self.x > 430:
-            self.x = 430
+        elif self.x > 450:
+            self.x = 450
 
         if jump_key_press(('INPUT', event)):
             if self.y > 100:
