@@ -38,7 +38,7 @@ class Building:
         for문을 돌려 각 층마다 처리 """
         for floor in self.floors:
             if floor['alive']: # 만약 floor가 살아있다면 = 파괴되지 않았다면 = True라면
-                target_y = 20  # 목표 y 위치
+                target_y = PIXEL_PER_METER * 2  # 목표 y 위치
                 current_y = self.y + floor['y_offset']
                 if current_y > target_y:
                     floor['y_offset'] -= DROP_SPEED_PPS * game_framework.frame_time  # 각 층이 개별적으로 내려옴
