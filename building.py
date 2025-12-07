@@ -66,18 +66,25 @@ class Building:
                     floor['y_offset'] += BOUNCE_SPEED_KMPH # 모든 층이 위로 올라감
 
     def draw(self):
+        import play_mode  # 카메라 위치 참조
+
         # 살아있는 층만 그리기
-        # for문을 돌려 각 층마다 처리
         for floor in self.floors:
             if floor['alive']:
+                # 건물의 월드 y좌표(self.y + offset)에서 카메라 y를 뺌
+                screen_y = (self.y + floor['y_offset']) - play_mode.camera_y
+
                 self.building.clip_draw(0, floor['clip_y'], 1080, 307,
-                                        self.x, self.y + floor['y_offset'],
+                                        self.x, screen_y,
                                         self.framex, self.framey)
-        # 충돌 박스 함수들
-        for i in range(self.num_floors): # 9층 건물
-            bb = self.get_bb_floor(i) # 각 층의 충돌 박스 가져오기
-            if bb: # 충돌 박스가 존재하면
-                draw_rectangle(*bb) # 충돌 박스 그리기
+
+        # 충돌 박스 그리기 (디버깅용)
+        for i in range(self.num_floors):
+            bb = self.get_bb_floor(i)
+            if bb:
+                l, b, r, t = bb
+                # 충돌 박스 좌표도 카메라만큼 내려서 그림
+                draw_rectangle(l, b - play_mode.camera_y, r, t - play_mode.camera_y)
 
     def get_bb_floor(self, floor_num):
         if not self.floors[floor_num]['alive']: # 층이 파괴되었으면

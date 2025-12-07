@@ -1,6 +1,5 @@
 import time
 frame_time = 0
-
 running = None
 stack = None
 

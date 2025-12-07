@@ -59,11 +59,13 @@ score = 0
 score_timer = 0.0
 coin_spawn_timer = 0.0
 font = None
+camera_y = 0 # 카메라의 y좌표 초기화
 
 def init():  # 월드가 새로 나올때 그려지는 부분
     global running, character, world, sword, building, spawn_timer, coin
-    global score, score_timer, font # 점수와 타이머, 폰트 전역 변수 선언
+    global score, score_timer, font, camera_y # 점수와 타이머, 폰트 전역 변수 선언
 
+    camera_y = 0
     running = True
     world = [[],[],[]]
     game_world.clear()
@@ -93,7 +95,16 @@ def init():  # 월드가 새로 나올때 그려지는 부분
 
 def update():  # 월드에 객체가 추가되는 부분
     global spawn_timer, score, score_timer, coin_spawn_timer, current_coin
+    global camera_y
     game_world.update()
+
+    # 캐릭터가 화면 중앙(360)보다 높이 올라가면 카메라도 같이 올라감
+    # 캐릭터의 y좌표 - 360을 카메라의 기준점(바닥)으로 설정
+    camera_y = character.y - 360
+
+    # 카메라가 바닥(0)보다 아래로 내려가지 않도록 고정
+    if camera_y < 0:
+        camera_y = 0
 
     # 점수 업데이트
     score_timer += game_framework.frame_time

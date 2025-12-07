@@ -57,8 +57,11 @@ class Idle:
             self.character.velocity_y = 0 # 속도 0으로 고정
 
     def draw(self):
+        import play_mode  # 카메라 위치 참조
         frame_index = int(self.character.frame)
-        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, self.character.x, self.character.y, 100, 100)
+        # y좌표에서 camera_y를 뺌
+        screen_y = self.character.y - play_mode.camera_y
+        self.character.image.clip_draw(frame_index * 32, 95, 32, 35, self.character.x, screen_y, 100, 100)
 
 
 # 캐릭터 방어 상태
@@ -91,18 +94,21 @@ class Defence:
             self.character.velocity_y = 0 # 속도 0으로 고정
 
     def draw(self):
+        import play_mode
+        screen_y = self.character.y - play_mode.camera_y  # 화면 좌표 계산 (y좌표에서 camera_y를 뺌)
+
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(128, 93, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(128, 93, 32, 35, self.character.x, screen_y, 100, 100)
         elif frame_index == 1:
-            self.character.image.clip_draw(0, 61, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(0, 61, 32, 35, self.character.x, screen_y, 100, 100)
 
 
 # 캐릭터 점프 상태
 class Jump:
     FRAMES_PER_ACTION = 3       # 점프 애니메이션 프레임 수
     ACTION_PER_TIME = 1.0 / 0.2 # 점프 애니메이션 속도 (0.1초에 한 번 동작)
-    JUMP_SPEED = 1500 # 점프 속도
+    JUMP_SPEED = 1200 # 점프 속도
 
 
     def __init__ (self,character):
@@ -143,13 +149,16 @@ class Jump:
 
 
     def draw(self):
+        import play_mode
+        screen_y = self.character.y - play_mode.camera_y  # # 화면 좌표 계산 (y좌표에서 camera_y를 뺌)
+
         frame_index = int(self.frame) % 3
         if frame_index == 0:
-            self.character.image.clip_draw(32, 60, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(32, 60, 32, 35, self.character.x, screen_y, 100, 100)
         elif frame_index == 1:
-            self.character.image.clip_draw(64, 61, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(64, 61, 32, 35, self.character.x, screen_y, 100, 100)
         elif frame_index == 2:
-            self.character.image.clip_draw(96, 61, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(96, 61, 32, 35, self.character.x, screen_y, 100, 100)
 
 
 # 캐릭터 공격 상태
@@ -184,13 +193,16 @@ class Attack:
             self.character.velocity_y = 0 # 속도 0으로 고정
 
     def draw(self):
+        import play_mode
+        screen_y = self.character.y - play_mode.camera_y  # # 화면 좌표 계산 (y좌표에서 camera_y를 뺌)
+
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(0, 29, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(0, 29, 32, 35, self.character.x, screen_y, 100, 100)
         elif frame_index == 1:
-            self.character.image.clip_draw(32, 29, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(32, 29, 32, 35, self.character.x, screen_y, 100, 100)
         elif frame_index == 2:
-            self.character.image.clip_draw(64, 29, 32, 35, self.character.x, self.character.y, 100, 100)
+            self.character.image.clip_draw(64, 29, 32, 35, self.character.x, screen_y, 100, 100)
 
 
 # 캐릭터 클래스
@@ -233,8 +245,11 @@ class Character:
         return self.x - 30, self.y - 0, self.x + 30, self.y + 40
 
     def draw(self):  # 캐릭터가 그려지는 부분
-        self.state_machine.draw() # 상태 머신한테 draw를 맡김
-        draw_rectangle(*self.get_bb())
+        import play_mode
+        self.state_machine.draw()
+        # 충돌 박스도 카메라에 맞춰 이동 (디버그용 사각형)
+        sx, sy = self.x, self.y - play_mode.camera_y
+        draw_rectangle(sx - 30, sy - 0, sx + 30, sy + 40)
 
     def handle_event(self, event): # 이벤트가 발생했을 때 처리하는 부분
         # 캐릭터 좌우 이동

@@ -22,7 +22,9 @@ class Idle_Sword:
 
     def draw(self):
         import math
-        self.sword.image.clip_composite_draw(0, 0, 122, 122, -math.pi / 2, '' ,self.sword.x, self.sword.y, 200, 200)
+        import play_mode
+        screen_y = self.sword.y - play_mode.camera_y
+        self.sword.image.clip_composite_draw(0, 0, 122, 122, -math.pi / 2, '', self.sword.x, screen_y, 200, 200)
 
 
 # 검 휘두르기 상태
@@ -56,19 +58,23 @@ class Wield_Sword:
         self.sword.y = self.sword.character.y + 46
 
     def draw(self):
+        import play_mode
+        screen_y = self.sword.y - play_mode.camera_y
         frame_index = int(self.frame)
+        # clip_draw의 y좌표 인자에 screen_y 사용
+        # (예시)
         if frame_index == 0:
-            self.sword.image.clip_draw(0, 0, 204, 122, self.sword.x, self.sword.y, self.framex, self.framey)
+            self.sword.image.clip_draw(0, 0, 204, 122, self.sword.x, screen_y, self.framex, self.framey)
         elif frame_index == 1:
-            self.sword.image.clip_draw(204, 0, 204, 122, self.sword.x, self.sword.y, self.framex, self.framey)
+            self.sword.image.clip_draw(204, 0, 204, 122, self.sword.x, screen_y, self.framex, self.framey)
         elif frame_index == 2:
-            self.sword.image.clip_draw(408, 0, 204, 122, self.sword.x, self.sword.y, self.framex, self.framey)
+            self.sword.image.clip_draw(408, 0, 204, 122, self.sword.x, screen_y, self.framex, self.framey)
         elif frame_index == 3:
-            self.sword.image.clip_draw(612, 0, 204, 122, self.sword.x, self.sword.y, self.framex, self.framey)
+            self.sword.image.clip_draw(612, 0, 204, 122, self.sword.x, screen_y, self.framex, self.framey)
         elif frame_index == 4:
-            self.sword.image.clip_draw(816, 0, 204, 122, self.sword.x, self.sword.y, self.framex, self.framey)
+            self.sword.image.clip_draw(816, 0, 204, 122, self.sword.x, screen_y, self.framex, self.framey)
         elif frame_index == 5:
-            self.sword.image.clip_draw(1020, 0, 204, 122, self.sword.x, self.sword.y, self.framex, self.framey)
+            self.sword.image.clip_draw(1020, 0, 204, 122, self.sword.x, screen_y, self.framex, self.framey)
 
 
 # 검 방어 상태
@@ -101,7 +107,9 @@ class Defence_Sword:
 
     def draw(self):
         import math
-        self.sword.image.clip_composite_draw(0, 0, 204, 122, math.pi, '', self.sword.x, self.sword.y, 300, 200)
+        import play_mode
+        screen_y = self.sword.y - play_mode.camera_y
+        self.sword.image.clip_composite_draw(0, 0, 204, 122, math.pi, '', self.sword.x, screen_y, 300, 200)
 
 
 # 검 클래스 정의
@@ -141,11 +149,16 @@ class Sword:
         self.state_machine.update()
 
     def draw(self):
+        import play_mode
         self.state_machine.draw()
-        if self.state_machine.current_state == self.WIELD_SWORD: # 만약 검을 휘두르면
-            draw_rectangle(*self.get_bb()) # 검의 충돌 박스 그리기 (실제 충돌처리와는 관련 X)
-        elif self.state_machine.current_state == self.DEFENCE_SWORD: # 만약 검으로 방어하면
-            draw_rectangle(*self.get_aa()) # 검의 충돌 박스 그리기 (실제 충돌처리와는 관련 X)
+        cy = play_mode.camera_y
+
+        if self.state_machine.current_state == self.WIELD_SWORD:
+            l, b, r, t = self.get_bb()
+            draw_rectangle(l, b - cy, r, t - cy)
+        elif self.state_machine.current_state == self.DEFENCE_SWORD:
+            l, b, r, t = self.get_aa()
+            draw_rectangle(l, b - cy, r, t - cy)
 
     # 검의 방어 충돌박스
     def get_aa(self):

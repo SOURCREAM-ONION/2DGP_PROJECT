@@ -9,7 +9,13 @@ class Background:
         pass
 
     def draw(self):
-        self.image.draw(240, 360, 480, 720)
+        import play_mode
+
+        # 화면 높이(720) 기준으로 반복되도록 계산
+        # 카메라가 올라가면 배경은 아래로 내려가야 함
+        y = 650 - (int(play_mode.camera_y) % 720)
+
+        self.image.draw(240, y, 480, 1440)
 
 
 class Background2(Background):
