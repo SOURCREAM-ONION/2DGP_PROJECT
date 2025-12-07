@@ -98,14 +98,6 @@ def update():  # 월드에 객체가 추가되는 부분
     global camera_y
     game_world.update()
 
-    # 캐릭터가 화면 중앙(360)보다 높이 올라가면 카메라도 같이 올라감
-    # 캐릭터의 y좌표 - 360을 카메라의 기준점(바닥)으로 설정
-    camera_y = character.y - 360
-
-    # 카메라가 바닥(0)보다 아래로 내려가지 않도록 고정
-    if camera_y < 0:
-        camera_y = 0
-
     # 점수 업데이트
     score_timer += game_framework.frame_time
     if score_timer >= 1.0:  # 1초마다 점수 증가
@@ -193,13 +185,19 @@ def update():  # 월드에 객체가 추가되는 부분
         if isinstance(obj, Building):  # 빌딩 객체 찾기
             for i in range(obj.num_floors): # 각 층을 검사
                 floor_y = obj.y + obj.floors[i]['y_offset'] # 층의 현재 y 위치 계산
-                if floor_y < 230: # 빌딩이 60까지 내려오면
-                    continue # 캐릭터와의 충돌체크 X
+
+                if floor_y < 230:
+                    continue
+
                 floor_bb = obj.get_bb_floor(i) # 층의 충돌 박스 가져오기
-                if floor_bb and collide_bb(character_bb, floor_bb):# 건물의 층과 캐릭터가 충돌했다면
-                    character.y = floor_bb[1] - 50 # 캐릭터를 층 위에 위치시킴
-                    if character.velocity_y > 0: # 캐릭터가 점프 중(위로 올라가는 중)이라면
-                        character.velocity_y = 0  # 상승력을 없애 바로 떨어지게 함
+
+                if floor_bb and collide_bb(character_bb, floor_bb):
+                    if character.y < floor_y:
+                    # 캐릭터 머리(Top)가 건물 바닥(Bottom)에 딱 닿게 위치 보정
+                    # character.y(발) + 40(키) = floor_bb[1](건물바닥)
+                        character.y = floor_bb[1] - 40
+                        if character.velocity_y > 0:
+                            character.velocity_y = 0
 
     # 코인과 캐릭터의 충돌 체크
     for obj in list(game_world.world[1]): # for문으로 월드의 1번 레이어 객체들 검사
@@ -209,6 +207,16 @@ def update():  # 월드에 객체가 추가되는 부분
                 game_data.total_coins += 1 # game_data파일의 total_coins 1 증가
                 game_data.current_coin += 1 # 현재 코인 1 증가
                 game_world.remove_object(obj) # 코인 제거
+
+
+    # 캐릭터가 화면 중앙(360)보다 높이 올라가면 카메라도 같이 올라감
+    # 캐릭터의 y좌표 - 360을 카메라의 기준점(바닥)으로 설정
+    camera_y = character.y - 360
+
+    # 카메라가 바닥(0)보다 아래로 내려가지 않도록 고정
+    if camera_y < 0:
+        camera_y = 0
+
 
 
 def draw():  # 월드가 만들어지는 부분

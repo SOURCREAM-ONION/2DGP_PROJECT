@@ -10,12 +10,18 @@ class Background:
 
     def draw(self):
         import play_mode
+        img_height = 1920
 
-        # 화면 높이(720) 기준으로 반복되도록 계산
-        # 카메라가 올라가면 배경은 아래로 내려가야 함
-        y = 650 - (int(play_mode.camera_y) % 720)
+        # 카메라 위치에 따라 이미지가 얼마나 내려가야 하는지 계산 (0 ~ 1439 반복)
+        scroll_y = int(play_mode.camera_y) % img_height
 
-        self.image.draw(240, y, 480, 1440)
+        # --- 이미지 두 장을 위아래로 이어 그리기 ---
+
+        # 1. 아래쪽 이미지 (현재 화면에 보이는 메인 배경)
+        # 화면상의 중심 좌표 = (이미지 절반 높이) - (스크롤된 양)
+        y1 = (img_height // 2) - scroll_y - 120
+        self.image.draw(240, y1, 720, img_height)
+
 
 
 class Background2(Background):

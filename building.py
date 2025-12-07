@@ -4,18 +4,18 @@ import game_framework
 
 # 상수 정의
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-DROP_SPEED_KMPH = 30.0  # Km / Hour
+DROP_SPEED_KMPH = 35.0  # Km / Hour
 DROP_SPEED_MPM = (DROP_SPEED_KMPH * 1000.0 / 60.0)
 DROP_SPEED_MPS = (DROP_SPEED_MPM / 60.0)
 DROP_SPEED_PPS = (DROP_SPEED_MPS * PIXEL_PER_METER)
 
 # 튕기는 듯한 느낌을 주는 속도 상수
-BOUNCE_SPEED_KMPH = 400 # 방어 시 건물이 살짝 튕기는 속도
+BOUNCE_SPEED_KMPH = 450 # 방어 시 건물이 살짝 튕기는 속도
 
 # Building의 부모클래스 정의
 class Building:
     def __init__(self, image_file='building/Building1.png', num_floors=9): # 기본 건물 이미지 파일과 층 수
-        self.x, self.y = 240, 1500  # 건물의 초기 위치
+        self.x, self.y = 240, 2000  # 건물의 초기 위치
         self.building = load_image(image_file)  # 건물 이미지 로드
         self.framex = 480  # 건물 프레임 크기 x
         self.framey = 150  # 건물 프레임 크기 y

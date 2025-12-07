@@ -30,7 +30,7 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION # 초당 동작 수
 FRAMES_PER_ACTION = 4 # 동작당 프레임 수
 
 # 중력 상수 (Jump 클래스 외에도 사용할 수 있게)
-GRAVITY = 500
+GRAVITY = 350
 
 # 캐릭터 대기 상태
 class Idle:
