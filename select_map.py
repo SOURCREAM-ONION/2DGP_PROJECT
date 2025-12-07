@@ -45,7 +45,7 @@ def update():
 def draw():
     clear_canvas()
 
-    current_preview.draw()
+    current_preview.image.draw(240, 360, 480, 720)
     if direction_image:
         direction_image.draw(430, 360, 100, 100)
         direction_image.composite_draw(0, 'h', 50, 360, 100, 100)
