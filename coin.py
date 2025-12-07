@@ -1,14 +1,15 @@
 from pico2d import *
 import random
+import game_data
 
 class Coin:
     image = None
 
-    def __init__(self, x = None, y = 80):
+    def __init__(self,x = None):
         if Coin.image is None:
             Coin.image = load_image('ui/coin.png')
         self.x = x if x is not None else random.randint(50, 600)
-        self.y = y
+        self.y = 80
         self.frame = 0
         self.total_frames = 4
         self.animation_speed = 30
@@ -26,3 +27,17 @@ class Coin:
 
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
+
+
+class CoinBox:
+    def __init__(self):
+        self.image = load_image("ui/coinbox.png")
+
+        self.font = load_font('ui/ENCR10B.ttf', 30)
+        self.x = 1150
+        self.y = 680
+
+    def draw(self):
+        # 상자 그리기
+        self.image.draw(self.x, self.y, 200, 65)
+        self.font.draw(self.x - 20, self.y, f'{game_data.total_coins}', (50, 50, 50))
