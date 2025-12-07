@@ -2,25 +2,30 @@ from pico2d import *
 import game_framework
 import play_mode
 import title_mode
+import game_data
 
 image = None
 font_gameover = None
 font_esc = None
 font_score = None
+font_coins = None
 
 def init():
-    global image, font_gameover, font_esc, font_score
+    global image, font_gameover, font_esc, font_score,font_coins
     image = load_image('background/EndBackground.png')
     font_gameover = load_font('ui/ENCR10B.ttf', 60)
     font_esc = load_font('ui/ENCR10B.ttf', 25)
     font_score = load_font('ui/ENCR10B.ttf', 30)
+    font_coins = load_font('ui/ENCR10B.ttf', 25)
 
 def finish():
-    global image, font_gameover, font_esc, font_score
+    global image, font_gameover, font_esc, font_score, font_coins
+
     del image
     del font_gameover
     del font_esc
     del font_score
+    del font_coins
 
 def update():
     pass
@@ -36,6 +41,7 @@ def draw():
     image.draw_to_origin(0,0, 480, 720)
     font_gameover.draw(90, 530, 'Game Over', (255, 0, 0))
     font_esc.draw(115, 150, 'Press ESC to Title', (255, 255, 255))
-    font_score.draw(150, 390, f'Score: {play_mode.score}', (255, 255, 255))
+    font_score.draw(150, 390, f'Score: {int(play_mode.score)}', (255, 255, 255))
+    font_coins.draw(140, 320, f'Collected Coins: {game_data.current_coin}', (255, 255, 255))
 
     update_canvas()
