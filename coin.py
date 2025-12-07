@@ -7,7 +7,7 @@ class Coin:
     def __init__(self, x = None, y = 80):
         if Coin.image is None:
             Coin.image = load_image('ui/coin.png')
-        self.x = x if x is not None else random.randint(50, 650)
+        self.x = x if x is not None else random.randint(50, 600)
         self.y = y
         self.frame = 0
         self.total_frames = 4

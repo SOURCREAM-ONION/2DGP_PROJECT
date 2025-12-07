@@ -5,9 +5,11 @@ import game_framework
 import title_mode
 from building import create_random_building,Building
 from background import Background # 배경 클래스 임포트
+from game_framework import change_mode
 from sword import Sword
 from coin import Coin
 import game_data
+import game_over
 
 current_map_class = Background  # 현재 맵 클래스를 Background로 설정
 current_character_class = Character # 현재 캐릭터 클래스를 Character로 설정
@@ -55,6 +57,7 @@ def handle_events():
 score = 0
 score_timer = 0.0
 coin_spawn_timer = 0.0
+current_coin = 0
 font = None
 
 def init():  # 월드가 새로 나올때 그려지는 부분
@@ -89,13 +92,13 @@ def init():  # 월드가 새로 나올때 그려지는 부분
 
 
 def update():  # 월드에 객체가 추가되는 부분
-    global spawn_timer, score, score_timer, coin_spawn_timer
+    global spawn_timer, score, score_timer, coin_spawn_timer, current_coin
     game_world.update()
 
     # 점수 업데이트
     score_timer += game_framework.frame_time
     if score_timer >= 1.0:  # 1초마다 점수 증가
-        score += 1  # 점수 10점 증가
+        score += 0.5  # 점수 10점 증가
         score_timer -= 0.0  # 타이머 초기화
 
     coin_spawn_timer += game_framework.frame_time
@@ -111,9 +114,10 @@ def update():  # 월드에 객체가 추가되는 부분
                 if obj.floors[i]['alive']: # 층이 살아있다면
                     floor_y = obj.y + obj.floors[i]['y_offset'] # 층의 현재 y 위치 계산
                      # 층의 바닥이 y=20 이하로 내려갔는지 확인
-                    if floor_y <= 150:
+                    if floor_y <= 150: # 게임 오버 조건
                         import game_over
-                        game_framework.change_mode(game_over)
+                        game_framework.change_mode(game_over) # 게임 오버 모드로 전환
+                        current_coin = 0 # 현재 코인 초기화
                         return
 
     # # 빌딩 스폰 타이머 업데이트
@@ -159,7 +163,7 @@ def update():  # 월드에 객체가 추가되는 부분
                             sword.hit_list.append((obj, i)) # 히트리스트에 추가
 
                             if not obj.floors[i]['alive']: # 만약 해당 층이 파괴되었다면
-                                score += 10  # 점수 100점 추가
+                                score += 100  # 점수 100점 추가
 
     # 검 방어 중일 때 모든 빌딩과 충돌 체크
     if sword.is_defending(): # 검으로 방어하는 중이라면
@@ -189,6 +193,7 @@ def update():  # 월드에 객체가 추가되는 부분
             coin_bb = obj.get_bb() # 코인의 충돌 박스 가져오기
             if coin_bb and collide_bb(character_bb, coin_bb):# 코인과 캐릭터가 충돌했다면
                 game_data.total_coins += 1 # game_data파일의 total_coins 1 증가
+                current_coin += 1
                 game_world.remove_object(obj) # 코인 제거
 
 
@@ -198,8 +203,8 @@ def draw():  # 월드가 만들어지는 부분
 
     # 점수 표시
     if font:
-        font.draw(20, 680, f'Score : {score}',(255,255,255))
-        font.draw(20, 640, f'Coins : {game_data.total_coins}',(255,255,0))
+        font.draw(20, 680, f'Score : {int(score)}',(255,255,255))
+        font.draw(20, 640, f'Coins : {current_coin}',(255,255,0))
     update_canvas()
 
 
