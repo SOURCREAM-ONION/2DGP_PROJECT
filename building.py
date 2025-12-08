@@ -19,7 +19,9 @@ class Building:
     def __init__(self, image_file='building/Building1.png', num_floors=9): # 기본 건물 이미지 파일과 층 수
         self.x, self.y = 240, 2000  # 건물의 초기 위치
         self.building = load_image(image_file)  # 건물 이미지 로드
-        self.crack_image = load_image('ui/Crack.png') # 균열 이미지 로드
+        self.crack_image1 = load_image('ui/Crack_01.png') # 균열 이미지 로드 (덜 손상)
+        self.crack_image2 = load_image('ui/Crack_02.png') # 균열 이미지 로드 (중간 손상)
+        self.crack_image3 = load_image('ui/Crack_03.png') # 균열 이미지 로드 (심각한 손상)
         self.framex = 480  # 건물 프레임 크기 x
         self.framey = 150  # 건물 프레임 크기 y
 
@@ -52,7 +54,7 @@ class Building:
             floor = self.floors[floor_num]
             if floor['alive']:
                 floor['hp'] -= damage
-                print(f"{floor_num + 1}층이 {damage} 데미지를 입음! 남은 체력: {floor['hp']}")
+                # print(f"{floor_num + 1}층이 {damage} 데미지를 입음! 남은 체력: {floor['hp']}")
                 if floor['hp'] <= 0:
                     self.destroy_floor(floor_num)
 
@@ -60,7 +62,7 @@ class Building:
     def destroy_floor(self, floor_num):
         if 0 <= floor_num < len(self.floors):
             self.floors[floor_num]['alive'] = False # 해당 층을 파괴 상태로 변경
-            print(f"{floor_num + 1}층 파괴됨!")
+            # print(f"{floor_num + 1}층 파괴됨!")
 
     # 건물이 튕겨지는 함수
     def push_up(self):
@@ -82,18 +84,23 @@ class Building:
                                         self.x, screen_y,
                                         self.framex, self.framey)
 
+                # 층의 체력에 따라 균열 이미지 그리기 (0~25 멀쩡/ 26~50 약간 / 51~75 중간 / 76~100 심각)ㅋㅋ
                 if floor['max_hp'] > 0:
                     hp_ratio = floor['hp'] / floor['max_hp']
-                    if hp_ratio <= 0.25:
-                        self.crack_image.draw(self.x, screen_y, self.framex, self.framey)
+                    if hp_ratio <= 0.75:
+                        self.crack_image1.draw(self.x, screen_y, self.framex, self.framey)
+                    elif hp_ratio <= 0.50:
+                        self.crack_image2.draw(self.x, screen_y, self.framex, self.framey)
+                    elif hp_ratio <= 0.25:
+                        self.crack_image3.draw(self.x, screen_y, self.framex, self.framey)
 
-        # 충돌 박스 그리기 (디버깅용)
-        for i in range(self.num_floors):
-            bb = self.get_bb_floor(i)
-            if bb:
-                l, b, r, t = bb
-                # 충돌 박스 좌표도 카메라만큼 내려서 그림
-                draw_rectangle(l, b - play_mode.camera_y, r, t - play_mode.camera_y)
+        # # 충돌 박스 그리기 (디버깅용)
+        # for i in range(self.num_floors):
+        #     bb = self.get_bb_floor(i)
+        #     if bb:
+        #         l, b, r, t = bb
+        #         # 충돌 박스 좌표도 카메라만큼 내려서 그림
+        #         draw_rectangle(l, b - play_mode.camera_y, r, t - play_mode.camera_y)
 
     def get_bb_floor(self, floor_num):
         if not self.floors[floor_num]['alive']: # 층이 파괴되었으면
@@ -106,52 +113,52 @@ class Building:
 class Building52(Building):
     def __init__(self):
         Building.__init__(self,'building/Building52.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("52 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("52 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building41(Building):
     def __init__(self):
         Building.__init__(self,'building/Building41.png', num_floors=11)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("41 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("41 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building33(Building):
     def __init__(self):
         Building.__init__(self,'building/Building33.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("33 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("33 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building4(Building):
     def __init__(self):
         Building.__init__(self,'building/Building4.png', num_floors=11)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("4 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("4 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building32(Building):
     def __init__(self):
         Building.__init__(self,'building/Building32.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("32 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("32 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building2(Building):
     def __init__(self):
         Building.__init__(self,'building/Building2.png', num_floors=11)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("2 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("2 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building5(Building):
     def __init__(self):
         Building.__init__(self,'building/Building5.png', num_floors=9)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("5 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("5 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building10(Building):
     def __init__(self):
         Building.__init__(self,'building/Building10.png', num_floors=9)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("10 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("10 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building12(Building):
     def __init__(self):
         Building.__init__(self,'building/Building12.png', num_floors=9)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("12 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("12 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building13(Building):
     def __init__(self):
         Building.__init__(self,'building/Building13.png', num_floors=9)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("13 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("13 자식 클래스 초기화 완료") # 디버그 메시지
 
 # class Building45(Building):
 #     def __init__(self):
@@ -166,47 +173,47 @@ class Building13(Building):
 class Building35(Building):
     def __init__(self):
         Building.__init__(self,'building/Building35.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("35 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("35 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building36(Building):
     def __init__(self):
         Building.__init__(self,'building/Building36.png', num_floors=6)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("36 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("36 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building37(Building):
     def __init__(self):
         Building.__init__(self,'building/Building37.png', num_floors=6)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("37 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("37 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building38(Building):
     def __init__(self):
         Building.__init__(self,'building/Building38.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("38 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("38 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building39(Building):
     def __init__(self):
         Building.__init__(self,'building/Building39.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("39 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("39 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building40(Building):
     def __init__(self):
         Building.__init__(self,'building/Building40.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("40 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("40 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building47(Building):
     def __init__(self):
         Building.__init__(self,'building/Building47.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("47 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("47 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building48(Building):
     def __init__(self):
         Building.__init__(self,'building/Building48.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("48 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("48 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building65(Building):
     def __init__(self):
         Building.__init__(self,'building/Building65.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("65 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("65 자식 클래스 초기화 완료") # 디버그 메시지
 
 # class Building67(Building):
 #     def __init__(self):
@@ -216,17 +223,17 @@ class Building65(Building):
 class Building8(Building):
     def __init__(self):
         Building.__init__(self,'building/Building8.png', num_floors=9)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("8 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("8 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building14(Building):
     def __init__(self):
         Building.__init__(self,'building/Building14.png', num_floors=20)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("14 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("14 자식 클래스 초기화 완료") # 디버그 메시지
 
 class Building58(Building):
     def __init__(self):
         Building.__init__(self,'building/Building58.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
-        print("58 자식 클래스 초기화 완료") # 디버그 메시지
+        # print("58 자식 클래스 초기화 완료") # 디버그 메시지
 
 def create_random_building():
     buildings = [Building41,Building52,Building33,Building4,Building32,Building2,Building5,Building10,Building12,Building13,Building35,Building36,Building37,Building38,Building39,Building40,Building47,Building48,Building65,Building8,Building14,Building58]
