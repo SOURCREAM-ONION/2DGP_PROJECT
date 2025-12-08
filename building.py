@@ -156,7 +156,57 @@ class Building46(Building):
         Building.__init__(self,'building/Building46.png', num_floors=10)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
         print("46 자식 클래스 초기화 완료") # 디버그 메시지
 
+class Building35(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building35.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("35 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building36(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building36.png', num_floors=6)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("36 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building37(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building37.png', num_floors=6)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("37 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building38(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building38.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("38 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building39(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building39.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("39 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building40(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building40.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("40 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building47(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building47.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("47 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building48(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building48.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("48 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building65(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building65.png', num_floors=7)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("65 자식 클래스 초기화 완료") # 디버그 메시지
+
+class Building67(Building):
+    def __init__(self):
+        Building.__init__(self,'building/Building67.png', num_floors=6)  # 부모의 __init__ 호출 (super의 기능 = 부모클래스의 메서드 호출)
+        print("67 자식 클래스 초기화 완료") # 디버그 메시지
+
 def create_random_building():
-    #buildings = [Building,Building41,Building52,Building33,Building4,Building32,Building2,Building5,Building10,Building12,Building13,Building45,Building46]
-    buildings = [Building13] # 한개씩 테스트 할 때
+    buildings = [Building,Building41,Building52,Building33,Building4,Building32,Building2,Building5,Building10,Building12,Building13,Building45,Building46,Building35,Building36,Building37,Building38,Building39,Building40,Building47,Building48,Building65,Building67]
+    #buildings = [Building67] # 한개씩 테스트 할 때
     return random.choice(buildings)()
