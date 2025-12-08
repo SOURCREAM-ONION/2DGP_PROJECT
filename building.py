@@ -14,6 +14,8 @@ BOUNCE_SPEED_KMPH = 450 # 방어 시 건물이 살짝 튕기는 속도
 
 # Building의 부모클래스 정의
 class Building:
+    based_foors_hp = 1
+
     def __init__(self, image_file='building/Building1.png', num_floors=9): # 기본 건물 이미지 파일과 층 수
         self.x, self.y = 240, 2000  # 건물의 초기 위치
         self.building = load_image(image_file)  # 건물 이미지 로드
@@ -27,7 +29,7 @@ class Building:
                 'clip_y': i * 307, # 각 층의 클립 y 위치
                 'y_offset': i * 150, # 각 층의 y 오프셋
                 'alive': True, # 층이 살아있는지 여부
-                'hp' : 3 # 각 층의 체력
+                'hp' : Building.based_foors_hp # 각 층의 체력
             })
 
         self.num_floors = num_floors # 층 수 저장
