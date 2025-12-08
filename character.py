@@ -30,7 +30,7 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION # 초당 동작 수
 FRAMES_PER_ACTION = 4 # 동작당 프레임 수
 
 # 중력 상수 (Jump 클래스 외에도 사용할 수 있게)
-GRAVITY = 350
+GRAVITY = 300
 
 # 캐릭터 대기 상태
 class Idle:
@@ -108,7 +108,7 @@ class Defence:
 class Jump:
     FRAMES_PER_ACTION = 3       # 점프 애니메이션 프레임 수
     ACTION_PER_TIME = 1.0 / 0.2 # 점프 애니메이션 속도 (0.1초에 한 번 동작)
-    JUMP_SPEED = 1200 # 점프 속도
+    JUMP_SPEED = 800 # 점프 속도
 
 
     def __init__ (self,character):
@@ -283,70 +283,70 @@ class Character:
 # 다양한 캐릭터 클래스 정의 ( 클래스 예시 : Char2_1 = Char21 )
 class Char12(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char1_2.png')
 
 class Char13(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char1_3.png')
 
 class Char21(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char2_1.png')
 
 class Char22(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char2_2.png')
 
 class Char23(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char2_3.png')
 
 class Char31(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char3_1.png')
 
 class Char32(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char3_2.png')
 
 class Char33(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char3_3.png')
 
 class Char41(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char4_1.png')
 
 class Char42(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char4_2.png')
 
 class Char43(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char4_3.png')
 
 class Char51(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char5_1.png')
 
 class Char52(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char5_2.png')
 
 class Char53(Character):
     def __init__(self): # 부모의 모든 부분을 가져옴 ( sprite가 기존과 호환되기 때문에 가능 )
-        super().__init__()
+        Character.__init__(self)
         self.image = load_image('character/char5_3.png')
