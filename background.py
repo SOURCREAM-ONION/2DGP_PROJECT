@@ -12,7 +12,7 @@ class Background:
         import play_mode
         img_height = 1920
 
-        # 카메라 위치에 따라 이미지가 얼마나 내려가야 하는지 계산 (0 ~ 1439 반복)
+        # 카메라 위치에 따라 이미지가 얼마나 내려가야 하는지 계산
         scroll_y = int(play_mode.camera_y) % img_height
 
         # --- 이미지 두 장을 위아래로 이어 그리기 ---

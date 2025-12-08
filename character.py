@@ -189,7 +189,7 @@ class Attack:
 
         # 바닥 충돌 처리
         if self.character.y <= 100:
-            self.character.y = 100 # 캐릭터가 30 위치면
+            self.character.y = 100 # 캐릭터가 100 위치면
             self.character.velocity_y = 0 # 속도 0으로 고정
 
     def draw(self):
@@ -198,16 +198,17 @@ class Attack:
 
         frame_index = int(self.frame)
         if frame_index == 0:
-            self.character.image.clip_draw(0, 29, 32, 35, self.character.x, screen_y, 100, 100)
+            self.character.image.clip_draw(0, 30, 32, 34, self.character.x, screen_y, 100, 100)
         elif frame_index == 1:
-            self.character.image.clip_draw(32, 29, 32, 35, self.character.x, screen_y, 100, 100)
+            self.character.image.clip_draw(32, 30, 32, 34, self.character.x, screen_y, 100, 100)
         elif frame_index == 2:
-            self.character.image.clip_draw(64, 29, 32, 35, self.character.x, screen_y, 100, 100)
+            self.character.image.clip_draw(64, 30, 32, 34, self.character.x, screen_y, 100, 100)
 
 
 # 캐릭터 클래스
 class Character:
-    def __init__(self): # 캐릭터가 처음 생성될 때 나오는 부분
+    # 캐릭터가 처음 생성될 때 나오는 부분
+    def __init__(self):
         self.x, self.y = 240, 100 # 캐릭터의 초기 위치
         self.frame = 0 # 캐릭터의 프레임 초기화
         self.velocity_y = 0 # 캐릭터의 수직 속도 초기화
@@ -229,6 +230,7 @@ class Character:
             }
         )
 
+    # 방어 쿨타임 체크 함수
     def can_defence(self):
         import time
         current_time = time.time()
@@ -240,8 +242,9 @@ class Character:
     def update(self):
         self.state_machine.update()  # 상태 머신한테 update를 맡김
 
+    # 캐릭터 충돌처리
     def get_bb(self):
-        #캐릭터 충돌처리
+
         return self.x - 30, self.y - 0, self.x + 30, self.y + 40
 
     def draw(self):  # 캐릭터가 그려지는 부분
@@ -251,7 +254,8 @@ class Character:
         sx, sy = self.x, self.y - play_mode.camera_y
         draw_rectangle(sx - 30, sy - 0, sx + 30, sy + 40)
 
-    def handle_event(self, event): # 이벤트가 발생했을 때 처리하는 부분
+    # 이벤트가 발생했을 때 처리하는 부분
+    def handle_event(self, event):
         # 캐릭터 좌우 이동
         if event.type == SDL_KEYDOWN:
             if event.key == SDLK_LEFT:

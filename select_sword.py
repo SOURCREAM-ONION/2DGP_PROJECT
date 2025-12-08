@@ -1,6 +1,5 @@
 from pico2d import *
 import game_framework
-import select_map
 import select_character
 import play_mode
 from sword import Sword, WoodenSword, AncientSword, BloodSword, CheckinSword, CutterSword, GreenSword, IceSword, LibertySword, LightningSword, GoldenSword, NeptuneSword, NightSword, PinkSword, RosenSword, SharkSword, SyringeSword, BlackpinkSword
@@ -30,10 +29,10 @@ def init():
     selection_index = 0
 
     if current_map_class:
-        background = current_map_class()
+        background = current_map_class() # 선택한 배경 보이게 하기
 
     if current_character_class:
-        character = current_character_class()
+        character = current_character_class() # 선택한 캐릭터 보이게 하기
 
     if character:
         current_sword = sword_list[selection_index](character)

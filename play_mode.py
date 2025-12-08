@@ -5,11 +5,9 @@ import game_framework
 import title_mode
 from building import create_random_building, Building, PIXEL_PER_METER, DROP_SPEED_KMPH
 from background import Background # 배경 클래스 임포트
-from game_framework import change_mode
 from sword import Sword
 from coin import Coin
 import game_data
-import game_over
 
 current_map_class = Background  # 현재 맵 클래스를 Background로 설정
 current_character_class = Character # 현재 캐릭터 클래스를 Character로 설정
@@ -186,9 +184,9 @@ def update():  # 월드에 객체가 추가되는 부분
             for i in range(obj.num_floors): # 각 층을 검사
                 floor_y = obj.y + obj.floors[i]['y_offset'] # 층의 현재 y 위치 계산
 
+                # 층이 너무 낮으면 충돌 체크하지 않음
                 if floor_y < 230:
                     continue
-
                 floor_bb = obj.get_bb_floor(i) # 층의 충돌 박스 가져오기
 
                 if floor_bb and collide_bb(character_bb, floor_bb):
