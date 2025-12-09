@@ -54,7 +54,7 @@ class Building:
             floor = self.floors[floor_num]
             if floor['alive']:
                 floor['hp'] -= damage
-                # print(f"{floor_num + 1}층이 {damage} 데미지를 입음! 남은 체력: {floor['hp']}")
+                # print(f"{floor_num + 1}층이 {damage} 데미지를 입음! 남은 체력: {floor['hp']} 총 체력 : {floor['max_hp']}")
                 if floor['hp'] <= 0:
                     self.destroy_floor(floor_num)
 
@@ -237,5 +237,5 @@ class Building58(Building):
 
 def create_random_building():
     buildings = [Building41,Building52,Building33,Building4,Building32,Building2,Building5,Building10,Building12,Building13,Building35,Building36,Building37,Building38,Building39,Building40,Building47,Building48,Building65,Building8,Building14,Building58]
-    #buildings = [Building58] # 한개씩 테스트 할 때
+    #buildings = [Building14] # 한개씩 테스트 할 때
     return random.choice(buildings)()
