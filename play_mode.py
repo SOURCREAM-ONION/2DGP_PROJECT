@@ -1,13 +1,10 @@
 from pico2d import *
-import game_world
+import game_world, game_framework, title_mode, game_data, ui
 from character import Character
-import game_framework
-import title_mode
 from building import create_random_building, Building, PIXEL_PER_METER, DROP_SPEED_KMPH
 from background import Background # 배경 클래스 임포트
 from sword import Sword
 from coin import Coin
-import game_data
 
 current_map_class = Background  # 현재 맵 클래스를 Background로 설정
 current_character_class = Character # 현재 캐릭터 클래스를 Character로 설정
@@ -39,35 +36,53 @@ def collide_bb(bb_a, bb_b):
     if bottom_a > top_b: return False
     return True
 
-
-def handle_events():
-    global running
-    events = get_events()
-    for event in events:
-        if event.type == SDL_QUIT:
-            game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_mode(title_mode)
-            game_data.current_coin = 0 # 현재 코인 초기화
-            Building.based_floors_hp = 1 # 빌딩 체력 초기화
-        elif event.type == SDL_MOUSEBUTTONDOWN or event.type == SDL_KEYDOWN:
-            character.handle_event(event)
-            sword.handle_event(event)
-
 score = 0
 score_timer = 0.0
 coin_spawn_timer = 0.0
 font = None
 camera_y = 0 # 카메라의 y좌표 초기화
+paused = False # 일시정지 상태 변수
+pause_menu = None # 일시정지 메뉴 객체
+
+def handle_events():
+    global running, paused
+    events = get_events()
+    for event in events:
+        if event.type == SDL_QUIT:
+            game_framework.quit()
+
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            if not paused:
+                paused = True
+            else:
+                paused = False
+        if paused:
+            action = pause_menu.handle_event(event)
+            if action == 'restart':
+                paused = False
+                init()
+            elif action == 'quit':
+                paused = False
+                game_framework.change_mode(title_mode)
+                game_data.current_coin = 0 # 현재 코인 초기화
+                Building.based_floors_hp = 1 # 빌딩 체력 초기화
+        elif event.type == SDL_MOUSEBUTTONDOWN or event.type == SDL_KEYDOWN:
+            character.handle_event(event)
+            sword.handle_event(event)
 
 def init():  # 월드가 새로 나올때 그려지는 부분
     global running, character, world, sword, building, spawn_timer, coin
-    global score, score_timer, font, camera_y # 점수와 타이머, 폰트 전역 변수 선언
+    global score, score_timer, font, camera_y, paused, pause_menu # 점수와 타이머, 폰트 전역 변수 선언
 
     camera_y = 0
     running = True
+
     world = [[],[],[]]
     game_world.clear()
+
+    paused = False # 초기 실행시 일시정지 해제
+
+    pause_menu = ui.PauseMenu()
 
     background = current_map_class()
     game_world.add_object(background, 0) # 배경을 월드의 0번 레이어에 추가
@@ -95,6 +110,10 @@ def init():  # 월드가 새로 나올때 그려지는 부분
 def update():  # 월드에 객체가 추가되는 부분
     global spawn_timer, score, score_timer, coin_spawn_timer, current_coin
     global camera_y
+
+    if paused:
+        return
+
     game_world.update()
 
     # 점수 업데이트
@@ -227,6 +246,10 @@ def draw():  # 월드가 만들어지는 부분
     # 점수 표시
     if font:
         font.draw(20, 680, f'Score : {int(score)}',(255,255,255))
+
+    if paused:
+        pause_menu.draw()
+
     update_canvas()
 
 
