@@ -1,8 +1,13 @@
 from pico2d import *
 
 class Background:
+    bgm = None
+
     def __init__(self, image_name):
         self.image = load_image(image_name)
+        self.bgm = load_music('sound/bgm.mp3')
+        self.bgm.set_volume(100)
+        self.bgm.play()
 
 
     def update(self):
