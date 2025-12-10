@@ -47,6 +47,7 @@ class PauseMenu:
 
 
 class Debris:
+    image = None
     # 이미지와 해당 이미지 내의 파편 좌표들(Left, Bottom, Width, Height)을 정의
     # (Pico2D는 좌하단이 (0,0)입니다. 그림판 등에서 좌표를 확인해야 함)
     # 아래 좌표는 예시로 대략적으로 잡은 것입니다. 실제 이미지에 맞춰 조정이 필요할 수 있습니다.
@@ -93,7 +94,7 @@ class Debris:
         self.angle = random.uniform(0, 360)  # 현재 각도 (라디안 변환 필요)
         self.rotate_speed = random.uniform(-5, 5)  # 회전 속도 (라디안/초)
 
-        self.scale = random.uniform(0.8, 1.2)  # 크기 배율
+        self.scale = random.uniform(0.1, 0.3)  # 크기 배율
         self.timer = 0.0
         self.life_time = 1.5
 
@@ -119,15 +120,11 @@ class Debris:
 
             rx, ry, rw, rh = self.rect  # 선택된 파편의 좌표와 크기
 
-            # 그릴 크기는 원본 크기 * 스케일
-            draw_w = rw * self.scale
-            draw_h = rh * self.scale
-
             self.image.clip_composite_draw(
                 rx, ry, rw, rh,  # 이미지에서 잘라낼 부분
                 self.angle, '',  # 회전 각도 및 반전 없음
                 self.x, screen_y,  # 화면 위치
-                draw_w, draw_h  # 화면에 그려질 크기
+                rw * self.scale, rh * self.scale
             )
 
     def get_bb(self):
