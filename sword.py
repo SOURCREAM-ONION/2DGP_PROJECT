@@ -30,6 +30,8 @@ class Idle_Sword:
 
 # 검 휘두르기 상태
 class Wield_Sword:
+    sword_swish_sound = None
+
     def __init__(self, sword):
         self.x, self.y = 200, 53
         self.sword = sword
@@ -40,10 +42,13 @@ class Wield_Sword:
         self.FRAMES_PER_ACTION = 6 # 검 휘두르기 애니메이션 프레임 수
         self.framex = 240
         self.framey = 200
+        self.wav = load_wav('sound/knife_swish.wav')
+        self.wav.set_volume(50)
 
     def enter(self):
         self.frame = 0
         self.sword.hit_list.clear() # 검이 공격한 대상 리스트 초기화
+        self.wav.play()
 
     def exit(self):
         pass
@@ -78,6 +83,8 @@ class Wield_Sword:
 
 # 검 방어 상태
 class Defence_Sword:
+    sword_defence_sound = None
+
     def __init__(self, sword):
         self.sword = sword
         self.frame = 0 # 검 방어 애니메이션 프레임 초기화
@@ -85,6 +92,10 @@ class Defence_Sword:
         self.TIME_PER_ACTION = 5 # 검 방어 애니메이션 속도
         self.ACTION_PER_TIME = 2.7 # 검 방어 애니메이션 동작 시간
         self.FRAMES_PER_ACTION = 1 # 검 방어 애니메이션 프레임 수
+
+        if not Defence_Sword.sword_defence_sound:
+            Defence_Sword.sword_defence_sound = load_wav('sound/sword_defence.wav')
+            Defence_Sword.sword_defence_sound.set_volume(50)
 
     def enter(self):
         self.frame = 0

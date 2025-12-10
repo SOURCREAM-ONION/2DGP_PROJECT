@@ -3,7 +3,7 @@ import game_world, game_framework, title_mode, game_data, ui
 from character import Character
 from building import create_random_building, Building, PIXEL_PER_METER, DROP_SPEED_KMPH
 from background import Background # 배경 클래스 임포트
-from sword import Sword
+from sword import Sword, Defence_Sword
 from coin import Coin
 
 current_map_class = Background  # 현재 맵 클래스를 Background로 설정
@@ -204,6 +204,7 @@ def update():  # 월드에 객체가 추가되는 부분
                 for i in range(obj.num_floors): # 각 층을 검사
                     bb = obj.get_bb_floor(i) # 층의 충돌 박스 가져오기
                     if bb and collide_bb(bb, sword.get_aa()): # 충돌 박스가 존재하고 충돌했다면
+                        Defence_Sword.sword_defence_sound.play()
                         obj.push_up() # 빌딩 튕겨 올리기
                         character.velocity_y = -DROP_SPEED_KMPH * 60 # 캐릭터를 강제로 아래로 떨어뜨림
 
