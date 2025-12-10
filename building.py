@@ -19,6 +19,7 @@ BOUNCE_SPEED_PPS = (BOUNCE_SPEED_MPS * PIXEL_PER_METER)
 class Building:
     based_floors_hp = 1
     image = None  # 클래스 변수로 이미지 로드 (공유)
+    building_explosion = None
 
     def __init__(self, image_file='building/Building1.png', num_floors=9): # 기본 건물 이미지 파일과 층 수
         if Building.image == None:
@@ -30,6 +31,12 @@ class Building:
         self.crack_image3 = load_image('ui/Crack_03.png') # 균열 이미지 로드 (심각한 손상)
         self.framex = 480  # 건물 프레임 크기 x
         self.framey = 150  # 건물 프레임 크기 y
+
+        if not Building.building_explosion:
+            Building.building_explosion = load_wav('sound/explosion.wav')
+            Building.building_explosion.set_volume(64)
+
+
 
         # 층 정보 초기화
         self.floors = []
@@ -68,6 +75,7 @@ class Building:
     def destroy_floor(self, floor_num):
         if 0 <= floor_num < len(self.floors):
             self.floors[floor_num]['alive'] = False # 해당 층을 파괴 상태로 변경
+            Building.building_explosion.play() # 파괴 사운드 재생
             # print(f"{floor_num + 1}층 파괴됨!")
 
             floor_y = self.y + self.floors[floor_num]['y_offset']
