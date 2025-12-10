@@ -10,7 +10,10 @@ DROP_SPEED_MPS = (DROP_SPEED_MPM / 60.0)
 DROP_SPEED_PPS = (DROP_SPEED_MPS * PIXEL_PER_METER)
 
 # 튕기는 듯한 느낌을 주는 속도 상수
-BOUNCE_SPEED_KMPH = 450 # 방어 시 건물이 살짝 튕기는 속도
+BOUNCE_SPEED_KMPH = 5000 # 방어 시 건물이 살짝 튕기는 속도
+BOUNCE_SPEED_MPM = (BOUNCE_SPEED_KMPH * 1000.0 / 60.0)
+BOUNCE_SPEED_MPS = (BOUNCE_SPEED_MPM / 60.0)
+BOUNCE_SPEED_PPS = (BOUNCE_SPEED_MPS * PIXEL_PER_METER)
 
 # Building의 부모클래스 정의
 class Building:
@@ -74,7 +77,7 @@ class Building:
         # 방어 성공 시 호출: 모든 층을 위로 튕겨 올림
         for floor in self.floors:
             if floor['alive']:
-                    floor['y_offset'] += BOUNCE_SPEED_KMPH # 모든 층이 위로 올라감
+                    floor['y_offset'] += BOUNCE_SPEED_PPS * game_framework.frame_time * 3 # 모든 층이 위로 올라감
 
     def draw(self):
         import play_mode  # 카메라 위치 참조
