@@ -33,7 +33,7 @@ def init():
     character_list = [Character, Char12, Char13, Char21, Char22, Char23, Char31, Char32, Char33, Char41, Char42, Char43, Char51, Char52, Char53]
 
     selection_index = 0
-    character_prices = [0,1,1,1,2,2,2,3,3,4,4,5,5,6,7]  # 각 캐릭터의 가격 설정
+    character_prices = [0, 1, 1, 3, 3, 5, 5, 7, 7, 9, 9, 11, 11, 15, 17]  # 각 캐릭터의 가격 설정
 
     for price in character_prices:
         if price == 0:
@@ -152,7 +152,7 @@ def handle_events():
                         game_data.total_coins -= price
                         game_data.unlocked_characters[selection_index] = True  # game_data에 저장
 
-                        notification_msg = f"Map {selection_index} Unlocked!"
+                        notification_msg = f"{character_list[selection_index].__name__} Unlocked!"
                         notification_timer = get_time() + 1.0
                     else:
                         notification_msg = "Not enough coins!"

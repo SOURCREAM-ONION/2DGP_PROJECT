@@ -211,7 +211,7 @@ class WoodenSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/wooden_sword.png')  # 나무 검 이미지 로드
-        self.damage = 1
+        self.damage = 2
 
 class AncientSword(Sword):
     def __init__(self, character):
@@ -229,7 +229,7 @@ class CheckinSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/checkin_sword.png')  # 체크인 검 이미지 로드
-        self.damage = 4
+        self.damage = 3
 
 class CutterSword(Sword):
     def __init__(self, character):
@@ -241,7 +241,7 @@ class GreenSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/greed_sword.png')  # 그린 검 이미지 로드
-        self.damage = 5
+        self.damage = 4
 
 class IceSword(Sword):
     def __init__(self, character):
@@ -253,7 +253,7 @@ class LibertySword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/liberty_sword.png')  # 리버티 검 이미지 로드
-        self.damage = 6
+        self.damage = 5
 
 class LightningSword(Sword):
     def __init__(self, character):
@@ -265,49 +265,49 @@ class GoldenSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/golden_sword.png')  # 골든 검 이미지 로드
-        self.damage = 6
+        self.damage = 7
 
 class NeptuneSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/neptune_sword.png')  # 넵튠 검 이미지 로드
-        self.damage = 7
+        self.damage = 8
 
 class NightSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/night_sword.png')  # 나이트 검 이미지 로드
-        self.damage = 7
+        self.damage = 9
 
 class PinkSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/pink_sword.png')  # 핑크 검 이미지 로드
-        self.damage = 7
+        self.damage = 10
 
 class RosenSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/rosen_sword.png')  # 로젠 검 이미지 로드
-        self.damage = 7
+        self.damage = 10
 
 class SharkSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/shark_sword.png')  # 샤크 검 이미지 로드
-        self.damage = 8
+        self.damage = 11
 
 class SyringeSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/syringe_sword.png')  # 시린지 검 이미지 로드
-        self.damage = 8
+        self.damage = 11
 
 class BlackpinkSword(Sword):
     def __init__(self, character):
         Sword.__init__(self,character)
         self.image = load_image('sword/blackpink_sword.png')  # 블랙핑크 검 이미지 로드
-        self.damage = 10
+        self.damage = 15
 
 
 

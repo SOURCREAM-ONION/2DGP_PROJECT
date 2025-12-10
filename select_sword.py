@@ -34,7 +34,7 @@ def init():
     sword_list = [Sword, WoodenSword, AncientSword, BloodSword, CheckinSword, CutterSword, GreenSword, IceSword, LibertySword, LightningSword, GoldenSword, NeptuneSword, NightSword, PinkSword, RosenSword, SharkSword, SyringeSword, BlackpinkSword]
     selection_index = 0
 
-    sword_prices = [0, 1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 7, 8, 9, 10, 15, 20, 25]  # 각 검의 가격 설정
+    sword_prices = [0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 12, 14, 16, 18, 18, 20, 20, 30]  # 각 검의 가격 설정
 
     for price in sword_prices:
         if price == 0:

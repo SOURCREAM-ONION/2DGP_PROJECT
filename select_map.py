@@ -35,9 +35,9 @@ def init():
     font_unlock = load_font("ui/ENCR10B.TTF", 40)
     font_notification = load_font("ui/ENCR10B.TTF", 20)
 
-    map_prices = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                  1, 1, 2, 2, 2, 2, 2, 3, 4, 5,
-                  5, 5, 5, 5, 5, 6, 6, 7, 8, 8
+    map_prices = [0, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+                  2, 3, 3, 3, 3, 3, 4, 4, 4, 4,
+                  5, 5, 5, 5, 5, 6, 6, 7, 7, 8
                   ,9, 10, 15, 20, 25]
 
     # 잠금 해제 상태 초기화
